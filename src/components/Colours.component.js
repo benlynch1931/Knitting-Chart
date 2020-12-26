@@ -1,44 +1,43 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext } from 'react';
 import Colours from './Colours.Array'
+import { GlobalContext } from '../contexts/GlobalContext.js'
 
-export default class ColourComponent extends Component {
+const ColourComponent = () => {
 
-  constructor(props) {
-    super(props)
-    this.coloursClass = new Colours;
-    this.renderJSX = null
-    this.state = {
-      colours: this.coloursClass.returning()
+    const { colours, updateColours } = useContext(GlobalContext)
+    const coloursClass = new Colours
+    // const returnColours = () => { return coloursClass.returning() }
+    // const colours = returnColours()
+    console.log(colours)
+
+
+
+
+    const addColour = (event) => {
+      coloursClass.add(event.target.hexInput.value);
+      updateColours(coloursClass.returning())
     }
-  }
 
-
-
-    addColour(event) {
-      this.coloursClass.add(event.target.hexInput.value);
-      this.setState({colours: this.coloursClass.returning()});
-    }
-
-    loadColours() {
-      this.renderJSX = this.state.colours.map((row) => {
+    const loadColours = () => {
+      const renderJSX = colours.map((row) => {
         if(row[1] == null) {
           return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}}></button></td><td></td></tr>)
         } else {
           return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}}></button></td></tr>)
         }
       })
-      return this.renderJSX
+      return renderJSX
     }
 
 
 
 
-  render() {
+
     return (
       <div className='colours'>
       <table className='colours table'>
         <tbody>
-        {this.loadColours()}
+        {loadColours()}
           <tr>
             <td colSpan='2'>
             <button onClick={(event) => {
@@ -48,7 +47,7 @@ export default class ColourComponent extends Component {
         </tbody>
       </table>
       <div id='add-colours-dropmenu' className='add-colours'>
-        <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); this.addColour(event) }}>
+        <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event) }}>
         <table className='colours-table-form'>
           <tbody>
           {/*  <tr className='rgb-inputs'>
@@ -75,5 +74,7 @@ export default class ColourComponent extends Component {
       </div>
       </div>
     )
-  }
+
 }
+
+export default ColourComponent;
