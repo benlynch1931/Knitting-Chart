@@ -1,0 +1,120 @@
+.left-side-bar {
+  position: absolute;
+  width: 200px;
+  height: 1000px;
+  padding-top: 100px;
+  box-shadow: 10px 0 5px -2px #E3E3E3;
+}
+
+
+.chart-form.table {
+  width: 90%;
+  margin: 0 5%;
+}
+.chart-form.table td {
+  width: 50%;
+}
+table, tr, td {
+  border-collapse: collapse;
+  /* border: solid #000000; */
+}
+
+.form-control.label {
+  text-align: right;
+}
+
+.form-control input {
+  width: 30%;
+}
+
+.generate-chart.table.submit {
+  padding-top: 5px;
+}
+
+.generate-chart.table.submit button {
+  width: 60%;
+  margin-left: 20%;
+
+  border: solid #5C5C5C;
+  border-width: thin;
+  box-shadow: 0 0 2px #000000;
+}
+
+.colours {
+  margin-top: 20px;
+}
+
+.colours.table {
+  width: 40%;
+  margin-left: 30%;
+  text-align: center;
+}
+
+.colours.table td {
+  padding-top: 10px;
+}
+
+.colours.table button {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 400px;
+  border: solid #5C5C5C;
+  border-width: thin;
+  box-shadow: 0 0 4px #000000;
+
+  font-size: 20px;
+}
+
+.add-colours {
+  display: none;
+}
+
+.add-colours.show {
+
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  display: block;
+
+  border-radius: 5px;
+  box-shadow: 0 0 5px #000000;
+}
+
+.colours-table-form {
+  margin: 5%;
+  /* width: 50px; */
+  width: 144px;
+}
+
+/* .rgb-inputs td {
+  width: 25%;
+} */
+
+.rgb-inputs td input {
+  width: 70%;
+}
+
+
+#hex-inputs td input {
+  width: 90%;
+}
+
+.hex-inputs.label {
+  width: 35%
+}
+
+#add-colour-submit {
+  text-align: center;
+}
+
+#add-colour-submit button {
+  margin-top: 8px;
+  border-radius: 7px;
+  border: solid #5C5C5C;
+  border-width: thin;
+  box-shadow: 0 0 4px #000000;
+}
