@@ -10,7 +10,7 @@ function App() {
   return (
     <GlobalContextProvider>
       <LeftSideBar />
-      <Grid/>
+      <Grid />
     </GlobalContextProvider>
   );
 }

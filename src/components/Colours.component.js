@@ -4,7 +4,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const ColourComponent = () => {
 
-    const { colours, updateColours } = useContext(GlobalContext)
+    const { colours, updateColours, changeColourPick } = useContext(GlobalContext)
     const coloursClass = new Colours
     // const returnColours = () => { return coloursClass.returning() }
     // const colours = returnColours()
@@ -21,9 +21,9 @@ const ColourComponent = () => {
     const loadColours = () => {
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
-          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}}></button></td><td></td></tr>)
+          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
         } else {
-          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}}></button></td></tr>)
+          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
         }
       })
       return renderJSX

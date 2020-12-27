@@ -8,3 +8,16 @@
   margin-left: 205px;
   flex-grow: 1;
 }
+
+.grid table, .grid tr, .grid td {
+  border-collapse: collapse;
+  border: solid #000000;
+}
+
+.grid table {
+  margin: auto
+}
+
+.grid td {
+  padding: 0;
+}

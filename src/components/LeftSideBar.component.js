@@ -1,22 +1,19 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext } from 'react';
 import '../styles/LeftSideBar.css';
 import ColourComponent from './Colours.component'
+import { GlobalContext } from '../contexts/GlobalContext.js'
 
 
 
-export default class LeftSideBar extends Component {
+const LeftSideBar = () => {
+
+  const { stiches, rows, changeStitches, changeRows } = useContext(GlobalContext)
 
 
-  constructor(props) {
-    super(props)
-
-  }
-
-  render() {
     return (
       <div className='left-side-bar'>
         <div className='chart-form div'>
-          <form id='generate-chart'>
+          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); }}>
             <table className='chart-form table'>
               <tbody>
                 <tr className='form-control'>
@@ -38,5 +35,7 @@ export default class LeftSideBar extends Component {
       </div>
 
     )
-  }
+
 }
+
+export default LeftSideBar;
