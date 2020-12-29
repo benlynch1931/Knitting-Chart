@@ -65,8 +65,9 @@ const ColourComponent = () => {
           // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app/'
         }
       })
-      .then(res => res.json())
-      .then(data => formatColours(data.colours))
+      .then(res => console.log(res))
+      // .then(res => res.json())
+      // .then(data => formatColours(data.colours))
     }, []);
 
 
