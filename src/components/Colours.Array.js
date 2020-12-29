@@ -1,26 +1,33 @@
-export default class Colours extends Array {
+import React, { useContext } from 'react';
 
-  constructor(props) {
-    super(props)
-    this.array = [['#000000', '#FF0000'], ['#FFFFFF', '#00FF00'], ['#0000FF', '#FFFF00']]
-  }
+import { GlobalContext } from '../contexts/GlobalContext.js'
 
-  add(colour) {
-    if (colour.includes('#')) {
-      colour = colour
+const Colours = () => {
+
+  const { colours, updateColours } = useContext(GlobalContext)
+
+  const add = (addColour) => {
+    if (addColour.includes('#')) {
+      addColour = addColour
     } else {
-      colour = `#${colour}`
+      addColour = `#${addColour}`
     }
-    this.element = this.array[this.array.length - 1]
-    if( this.element[1] == null) {
-      this.array[this.array.length - 1][1] = `${colour}`
+    const viewLastElement = colours[colours.length-1]
+    if (viewLastElement[1] == null) {
+      const editLastElement = viewLastElement
+      const [...fullColours] = colours
+      fullColours.pop()
+      editLastElement[1] = addColour
+      updateColours([...fullColours, editLastElement])
     } else {
-      this.array.push([`${colour}`, null])
+      updateColours([...colours, [addColour, null]])
     }
-    this.returning()
   }
+  
 
-  returning() {
-    return this.array
+  return {
+    add: add
   }
 }
+
+export default Colours;

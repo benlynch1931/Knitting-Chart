@@ -59,11 +59,16 @@ table, tr, td {
   height: 30px;
 
   border-radius: 400px;
-  border: solid #5C5C5C;
+
   border-width: thin;
   box-shadow: 0 0 4px #000000;
 
   font-size: 20px;
+}
+
+.colours.table button:focus {
+  outline: none;
+  border: solid #09DBD8;
 }
 
 .add-colours {

@@ -1,33 +1,73 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const ColourComponent = () => {
 
-    const { colours, updateColours, changeColourPick } = useContext(GlobalContext)
-    const coloursClass = new Colours
-    // const returnColours = () => { return coloursClass.returning() }
-    // const colours = returnColours()
-    console.log(colours)
+    const { colours, updateColours, colourPick, changeColourPick } = useContext(GlobalContext)
+    const coloursFunction = Colours()
 
 
 
 
     const addColour = (event) => {
-      coloursClass.add(event.target.hexInput.value);
-      updateColours(coloursClass.returning())
+      const data = { colour_code: [event.target.hexInput.value]}
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      // fetch('http://localhost:6030/api/v1/colours/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'https://localhost:3000/'
+        },
+        body: JSON.stringify(data)
+      })
+      // coloursFunction.add(event.target.hexInput.value);
     }
 
     const loadColours = () => {
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
-          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+          if(row[0] == colourPick) {
+            return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+          } else {
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+          }
         } else {
-          return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+          if(row[0] == colourPick) {
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+          } else if(row[1] == colourPick) {
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+          } else {
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+          }
         }
       })
       return renderJSX
     }
+
+    const formatColours = (jsonColours) => {
+      let coloursArray = []
+      for (let i = 0; i < jsonColours.length; i+=2) {
+        let rowArray = [jsonColours[i].colour_code, jsonColours[i+1].colour_code]
+        coloursArray.push(rowArray)
+      }
+      updateColours(coloursArray)
+      console.log(coloursArray)
+    }
+
+    useEffect(() => {
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'https://localhost:3000/'
+        }
+      })
+
+      .then(res => res.json())
+      .then(data => formatColours(data.colours))
+    }, []);
 
 
 
@@ -47,7 +87,7 @@ const ColourComponent = () => {
         </tbody>
       </table>
       <div id='add-colours-dropmenu' className='add-colours'>
-        <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event) }}>
+        <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event); event.target.reset(); document.getElementById("add-colours-dropmenu").classList.toggle("show"); }}>
         <table className='colours-table-form'>
           <tbody>
           {/*  <tr className='rgb-inputs'>
