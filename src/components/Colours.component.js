@@ -17,7 +17,7 @@ const ColourComponent = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://localhost:3000/'
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         },
         body: JSON.stringify(data)
       })
@@ -61,7 +61,7 @@ const ColourComponent = () => {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://localhost:3000/'
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         }
       })
 
