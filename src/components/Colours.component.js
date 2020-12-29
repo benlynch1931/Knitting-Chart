@@ -59,7 +59,7 @@ const ColourComponent = () => {
     useEffect(() => {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
         method: 'GET',
-        mode: 'no-cors',
+        // mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
           // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app/'
