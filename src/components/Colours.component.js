@@ -15,6 +15,7 @@ const ColourComponent = () => {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
       // fetch('http://localhost:6030/api/v1/colours/', {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
@@ -56,11 +57,12 @@ const ColourComponent = () => {
     }
 
     useEffect(() => {
-      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
         method: 'GET',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app/'
         }
       })
 
