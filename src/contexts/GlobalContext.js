@@ -9,7 +9,9 @@ class GlobalContextProvider extends Component {
     rows: null,
     colourPick: "#FFFFFF",
     // colours: [['#000000', '#FF0000'], ['#FFFFFF', '#00FF00'], ['#0000FF', '#FFFF00']]
-    colours: []
+    colours: [],
+    chartID: null,
+    selectedCells: {}
   }
 
   changeStitches = (newSize) => {
@@ -28,6 +30,14 @@ class GlobalContextProvider extends Component {
     this.setState({colours: newColoursArray})
   }
 
+  setChartID = (newID) => {
+    this.setState({chartID: newID})
+  }
+
+  setSelectedCells = (newCells) => {
+    this.setState({selectedCells: newCells})
+  }
+
 
 
   render() {
@@ -37,7 +47,9 @@ class GlobalContextProvider extends Component {
         changeStitches: this.changeStitches,
         changeColourPick: this.changeColourPick,
         updateColours: this.updateColours,
-        changeRows: this.changeRows
+        changeRows: this.changeRows,
+        setChartID: this.setChartID,
+        setSelectedCells: this.setSelectedCells
       }}>
       {this.props.children}
       </GlobalContext.Provider>

@@ -4,9 +4,9 @@ import { GlobalContext } from '../contexts/GlobalContext.js';
 import '../styles/Grid.css';
 
 const Grid = () => {
-  const { stitches, rows, colourPick } = useContext(GlobalContext)
+  const { stitches, rows, colourPick, selectedCells, setSelectedCells } = useContext(GlobalContext)
   // const [colour, setColour] = useState('#FFFFFF')
-  const [selectedCells, setSelectedCells] = useState({})
+  // const [selectedCells, setSelectedCells] = useState({})
   const currentSelectedCells = selectedCells
 
 

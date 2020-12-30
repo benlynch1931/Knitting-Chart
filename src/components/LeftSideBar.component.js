@@ -7,13 +7,28 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stiches, rows, changeStitches, changeRows } = useContext(GlobalContext)
+  const { stitches, rows, changeStitches, changeRows, chartID, setChartID } = useContext(GlobalContext)
+  const saveChart = () => {
+    const data = { chart_name: "Testing", row_count: rows, stitch_count: stitches }
+    fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'mode': 'no-cors',
+        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+      },
+      body: JSON.stringify(data),
+      redirect: 'follow'
+    })
+    .then(res => res.json())
+    .then(data => setChartID(data['charts'][0]['id']))
+  }
 
 
     return (
       <div className='left-side-bar'>
         <div className='chart-form div'>
-          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); }}>
+          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart() }}>
             <table className='chart-form table'>
               <tbody>
                 <tr className='form-control'>
