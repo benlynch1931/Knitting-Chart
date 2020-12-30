@@ -13,7 +13,8 @@ const ColourComponent = () => {
     const addColour = (event) => {
       // const data = { colour_code: [event.target.hexInput.value]}
       const data = { 'colour_code': `${event.target.hexInput.value}`}
-      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      // fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      fetch('http://localhost:6030/api/v1/colours', {
       // fetch('http://localhost:6030/api/v1/colours/', {
         method: 'POST',
         mode: 'no-cors',
