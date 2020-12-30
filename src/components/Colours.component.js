@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect } from 'react';
+import React, { Component, useContext, useEffect, useState } from 'react';
 import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
 
@@ -6,29 +6,28 @@ const ColourComponent = () => {
 
     const { colours, updateColours, colourPick, changeColourPick } = useContext(GlobalContext)
     const coloursFunction = Colours()
+    const [refresh, setRefresh] = useState(false)
 
 
 
 
     const addColour = (event) => {
-      const data = { colour_code: [event.target.hexInput.value]}
-      // const data = { 'colour_code': `${event.target.hexInput.value}`}
+      const data = { colour_code: event.target.hexInput.value}
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
-      // fetch('http://localhost:6030/api/v1/colours', {
-      // fetch('http://localhost:6030/api/v1/colours/', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json'
-          // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         },
         body: JSON.stringify(data)
-        // body: data
       })
+      setRefresh(!refresh)
       // coloursFunction.add(event.target.hexInput.value);
     }
 
     const loadColours = () => {
+      console.log(colours)
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
           if(row[0] == colourPick) {
@@ -50,13 +49,17 @@ const ColourComponent = () => {
     }
 
     const formatColours = (jsonColours) => {
-      let coloursArray = []
+      let coloursArray = [['#FFFFFF', '#000000']]
+      let rowArray = null
       for (let i = 0; i < jsonColours.length; i+=2) {
-        let rowArray = [jsonColours[i].colour_code, jsonColours[i+1].colour_code]
+        if(jsonColours[i+1]) {
+          rowArray = [jsonColours[i].colour_code, jsonColours[i+1].colour_code]
+        } else {
+          rowArray = [jsonColours[i].colour_code, null]
+        }
         coloursArray.push(rowArray)
       }
       updateColours(coloursArray)
-      console.log(coloursArray)
     }
 
     useEffect(() => {
@@ -68,10 +71,26 @@ const ColourComponent = () => {
           'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         }
       })
-      // .then(res => console.log(res))
+      // .then(res => console.log(res.json()))
       .then(res => res.json())
+      // .then(data => console.log(data.colours[1].colour_code))
       .then(data => formatColours(data.colours))
     }, []);
+
+    useEffect(() => {
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
+        method: 'GET',
+        // mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        }
+      })
+      // .then(res => console.log(res.json()))
+      .then(res => res.json())
+      // .then(data => console.log(data.colours[1].colour_code))
+      .then(data => formatColours(data.colours))
+    }, [refresh]);
 
 
 
