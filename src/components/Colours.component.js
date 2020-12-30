@@ -62,7 +62,7 @@ const ColourComponent = () => {
         // mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
-          // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app/'
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app/'
         }
       })
       // .then(res => console.log(res))
