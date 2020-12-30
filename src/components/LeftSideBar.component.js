@@ -51,9 +51,9 @@ const LeftSideBar = () => {
           <table>
             <tbody>
               <tr>
-                <td><button>x | x</button></td>
-                <td><button>x <br/> -- <br/> x</button></td>
-                <td><button>None</button></td>
+                <td><button onClick={() => { setMirroring('horizontal') }}>x | x</button></td>
+                <td><button onClick={() => { setMirroring('vertical') }}  >x <br/> -- <br/> x</button></td>
+                <td><button onClick={() => { setMirroring(false) }}       >None</button></td>
               </tr>
             </tbody>
           </table>

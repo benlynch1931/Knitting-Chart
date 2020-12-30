@@ -12,7 +12,7 @@ class GlobalContextProvider extends Component {
     colours: [],
     chartID: null,
     selectedCells: {},
-    mirroring: 'vertical'
+    mirroring: false
   }
 
   changeStitches = (newSize) => {
