@@ -62,7 +62,7 @@ const ColourComponent = () => {
       updateColours(coloursArray)
     }
 
-    useEffect(() => {
+    const getColours = () => {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
         method: 'GET',
         // mode: 'no-cors',
@@ -75,21 +75,14 @@ const ColourComponent = () => {
       .then(res => res.json())
       // .then(data => console.log(data.colours[1].colour_code))
       .then(data => formatColours(data.colours))
+    }
+
+    useEffect(() => {
+      getColours()
     }, []);
 
     useEffect(() => {
-      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
-        method: 'GET',
-        // mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
-        }
-      })
-      // .then(res => console.log(res.json()))
-      .then(res => res.json())
-      // .then(data => console.log(data.colours[1].colour_code))
-      .then(data => formatColours(data.colours))
+      getColours()
     }, [refresh]);
 
 
