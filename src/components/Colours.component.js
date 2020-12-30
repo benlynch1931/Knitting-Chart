@@ -57,7 +57,7 @@ const ColourComponent = () => {
     }
 
     useEffect(() => {
-      fetch('http://chart-api-staging.herokuapp.com/api/v1/colours/', {
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
         method: 'GET',
         // mode: 'no-cors',
         headers: {
