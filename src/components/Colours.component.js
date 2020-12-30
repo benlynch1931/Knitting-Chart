@@ -11,10 +11,10 @@ const ColourComponent = () => {
 
 
     const addColour = (event) => {
-      // const data = { colour_code: [event.target.hexInput.value]}
-      const data = { 'colour_code': `${event.target.hexInput.value}`}
-      // fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
-      fetch('http://localhost:6030/api/v1/colours', {
+      const data = { colour_code: [event.target.hexInput.value]}
+      // const data = { 'colour_code': `${event.target.hexInput.value}`}
+      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      // fetch('http://localhost:6030/api/v1/colours', {
       // fetch('http://localhost:6030/api/v1/colours/', {
         method: 'POST',
         mode: 'no-cors',
@@ -22,8 +22,8 @@ const ColourComponent = () => {
           'Content-Type': 'application/json'
           // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         },
-        // body: JSON.stringify(data)
-        body: data
+        body: JSON.stringify(data)
+        // body: data
       })
       // coloursFunction.add(event.target.hexInput.value);
     }
