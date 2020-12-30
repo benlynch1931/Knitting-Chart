@@ -7,7 +7,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitches, rows, changeStitches, changeRows, chartID, setChartID } = useContext(GlobalContext)
+  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, setMirroring } = useContext(GlobalContext)
   const saveChart = () => {
     const data = { chart_name: "Testing", row_count: rows, stitch_count: stitches }
     fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
@@ -46,6 +46,19 @@ const LeftSideBar = () => {
             </table>
           </form>
         </div>
+        <hr />
+        <div className='mirrorOptionDiv'>
+          <table>
+            <tbody>
+              <tr>
+                <td><button>x | x</button></td>
+                <td><button>x <br/> -- <br/> x</button></td>
+                <td><button>None</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
         <ColourComponent />
       </div>
 

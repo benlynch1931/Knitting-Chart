@@ -28,7 +28,7 @@ const ColourComponent = () => {
     }
 
     const loadColours = () => {
-      console.log(colours)
+      // console.log(colours)
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
           if(row[0] == colourPick) {
