@@ -3,6 +3,7 @@ import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const ColourComponent = () => {
+  
 
     const { colours, updateColours, colourPick, changeColourPick } = useContext(GlobalContext)
     const coloursFunction = Colours()

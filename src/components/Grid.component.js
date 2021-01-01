@@ -1,15 +1,14 @@
-import React, { Component, useContext, useState } from 'react';
+import React, { Component, useContext, useState, useEffect} from 'react';
 import { GlobalContext } from '../contexts/GlobalContext.js';
 
 import '../styles/Grid.css';
 
 const Grid = () => {
-  React.initializeTouchEvents(true)
-  const { stitches, rows, colourPick, selectedCells, setSelectedCells, mirroring } = useContext(GlobalContext)
+
+  const { stitches, rows, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
   const gridCells = []
-  // const [colour, setColour] = useState('#FFFFFF')
-  // const [selectedCells, setSelectedCells] = useState({})
   const currentSelectedCells = selectedCells
+
 
 
   const renderGrid = () => {
@@ -28,10 +27,8 @@ const Grid = () => {
 
 
   const renderStitches = (rowNo) => {
-
     const stitchJSX = []
     const rowCells = []
-    // const dimensions = 400 * ((100 / stitches) / 100);
 
     for(let y=0; y < stitches; y++) {
       const id = `${rowNo}_${y+1}`
@@ -50,14 +47,14 @@ const Grid = () => {
           backgroundColor: '#FFFFFF'
         }
       }
-      stitchJSX.push(<td><div className='stitch' id={id} style={styling} onTouchStart={(event) => { event.preventDefault(); selectingCells(id) }} onClick={(event) => { event.preventDefault(); selectingCells(id) }}></div></td>)
+      stitchJSX.push(<td><div className='stitch' id={id} style={styling} onClick={(event) => { event.preventDefault(); selectingCells(id) }}></div></td>)
     }
     gridCells.push(rowCells)
     return stitchJSX
   }
 
   const selectingCells = (selectedID) => {
-    setSaved(false)
+    // setSaved(false)
     let findCellColumn = null
     let findCellRow = null
     if ( mirroring == 'horizontal' ) {
@@ -85,6 +82,7 @@ const Grid = () => {
       });
 
     } else if ( mirroring == false ) {
+      console.log("I'm in the right place!")
       setSelectedCells({...currentSelectedCells, [selectedID]: colourPick })
     }
   }
