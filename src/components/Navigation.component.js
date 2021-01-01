@@ -11,7 +11,7 @@ const Navigation = () => {
   const saveCells = () => {
     // const data = [CHART, SELECTEDCELLS]
     // const data = { chart_name: "Testing", row_count: rows, stitch_count: stitches }
-    console.log(selectedCells)
+    // console.log(selectedCells)
     const data = { cells: selectedCells, chart_id: chartID }
     // fetch('https://testing-save-capabilities.herokuapp.com/api/v1/charts', {
     fetch(`https://chart-api-staging.herokuapp.com/api/v1/selected_cells`, {
@@ -28,6 +28,7 @@ const Navigation = () => {
   }
 
   const loadChartsList = () => {
+    saveCells()
     fetch('https://chart-api-staging.herokuapp.com/api/v1/charts/', {
       method: 'GET',
       // mode: 'no-cors',
@@ -46,7 +47,7 @@ const Navigation = () => {
 
   const formatChartsList = (chartsInfo) => {
      chartsInfo = chartsInfo.map((chart) => {
-      return (<li id={`chart_${chart.id}`} className='charts-list'><div className='charts-list div' onClick={ () => { loadChart(chart.id) } }>{chart.name}</div></li>)
+      return (<li id={`chart_${chart.id}`} className='charts-list'><div className='charts-list div' onClick={ () => { loadChart(chart.id); document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>{chart.name}</div></li>)
     })
     // console.log(viewChartsList)
     setViewChartsList(chartsInfo)
@@ -107,10 +108,9 @@ const Navigation = () => {
   return (
     <div className='navigation'>
       <button className='save' onClick={ () => { saveCells(); } }>Save</button>
-      <button className='load' onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show");} }>Load</button>
+      <button className='load' onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>Load</button>
       <div id='load-chart-dropdown' className='load-chart'>
         <ul>
-            <li className='load-chart'>boo</li>
           { viewChartsList }
         </ul>
       </div>
