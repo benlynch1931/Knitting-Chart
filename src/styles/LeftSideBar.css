@@ -1,8 +1,16 @@
+hr {
+  margin: 10px 10px;
+}
+
+h3 {
+  text-align: center;
+}
+
 .left-side-bar {
   position: absolute;
   width: 200px;
   height: 1000px;
-  padding-top: 100px;
+  padding-top: 50px;
   box-shadow: 10px 0 5px -2px #E3E3E3;
 
   z-index: 2
@@ -13,9 +21,14 @@
   width: 90%;
   margin: 0 5%;
 }
-.chart-form.table td {
+.numbers {
   width: 50%;
 }
+
+.name {
+  height: 40px;
+}
+
 table, tr, td {
   border-collapse: collapse;
   /* border: solid #000000; */
@@ -25,8 +38,13 @@ table, tr, td {
   text-align: right;
 }
 
-.form-control input {
+.number-input {
   width: 30%;
+}
+
+.name-input {
+  width: 70%;
+  margin-left: 15%;
 }
 
 .generate-chart.table.submit {
@@ -35,6 +53,7 @@ table, tr, td {
 
 .generate-chart.table.submit button {
   width: 60%;
+  height: 25px;
   margin-left: 20%;
 
   border: solid #5C5C5C;
@@ -134,7 +153,7 @@ table, tr, td {
 }
 
 .mirrorOptionDiv table, .mirrorOptionDiv tr, .mirrorOptionDiv td {
-  border: solid #000000
+  /* border: solid #000000 */
 }
 
 .mirrorOptionDiv td {

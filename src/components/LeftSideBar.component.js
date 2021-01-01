@@ -9,35 +9,41 @@ const LeftSideBar = () => {
 
   const { stitches, rows, changeStitches, changeRows, chartID, setChartID, setMirroring } = useContext(GlobalContext)
   const saveChart = () => {
-    const data = { chart_name: "Testing", row_count: rows, stitch_count: stitches }
-    fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'mode': 'no-cors',
-        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
-      },
-      body: JSON.stringify(data),
-      redirect: 'follow'
-    })
+    const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitches.value }
+      fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'mode': 'no-cors',
+          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        },
+        body: JSON.stringify(data),
+        redirect: 'follow'
+      })
     .then(res => res.json())
     .then(data => setChartID(data['charts'][0]['id']))
+
   }
+
 
 
     return (
       <div className='left-side-bar'>
         <div className='chart-form div'>
-          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart() }}>
+        <h3>Create New Chart</h3>
+          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset() }}>
             <table className='chart-form table'>
               <tbody>
-                <tr className='form-control'>
-                  <td className='form-control label'><label>Rows</label></td>
-                  <td><input type='text' name='rows'/></td>
+                <tr className='form-control name'>
+                  <td colSpan='2' ><input type='text' name='name' className='name-input' required/></td>
                 </tr>
                 <tr className='form-control'>
-                  <td className='form-control label'><label>Stitches</label></td>
-                  <td><input type='text' name='stitches' /></td>
+                  <td className='form-control label numbers'><label>Rows</label></td>
+                  <td className='numbers'><input type='text' name='rows' className='number-input' required/></td>
+                </tr>
+                <tr className='form-control'>
+                  <td className='form-control label numbers'><label>Stitches</label></td>
+                  <td className='numbers'><input type='text' name='stitches' className='number-input' required/></td>
                 </tr>
                 <tr>
                   <td colSpan='2' className='generate-chart table submit'><button type='submit'>Generate</button></td>
