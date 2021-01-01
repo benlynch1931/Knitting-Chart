@@ -9,8 +9,9 @@ h3 {
 .left-side-bar {
   position: absolute;
   width: 200px;
-  height: 1000px;
-  padding-top: 50px;
+  /* height: 1000px; */
+  padding-top: 0px;
+  padding-bottom: 50px;
   box-shadow: 10px 0 5px -2px #E3E3E3;
 
   z-index: 2

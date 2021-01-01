@@ -56,6 +56,7 @@ const Grid = () => {
   }
 
   const selectingCells = (selectedID) => {
+    setSaved(false)
     let findCellColumn = null
     let findCellRow = null
     if ( mirroring == 'horizontal' ) {
