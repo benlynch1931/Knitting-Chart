@@ -4,6 +4,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js';
 import '../styles/Grid.css';
 
 const Grid = () => {
+  React.initializeTouchEvents(true)
   const { stitches, rows, colourPick, selectedCells, setSelectedCells, mirroring } = useContext(GlobalContext)
   const gridCells = []
   // const [colour, setColour] = useState('#FFFFFF')
@@ -49,7 +50,7 @@ const Grid = () => {
           backgroundColor: '#FFFFFF'
         }
       }
-      stitchJSX.push(<td><div className='stitch' id={id} style={styling} onClick={(event) => { event.preventDefault(); selectingCells(id) }}></div></td>)
+      stitchJSX.push(<td><div className='stitch' id={id} style={styling} onTouchStart={(event) => { event.preventDefault(); selectingCells(id) }} onClick={(event) => { event.preventDefault(); selectingCells(id) }}></div></td>)
     }
     gridCells.push(rowCells)
     return stitchJSX
