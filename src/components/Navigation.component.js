@@ -5,13 +5,11 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 import '../styles/navigation.css';
 
 const Navigation = () => {
-  const { stitches, rows, selectedCells, chartID, changeStitches, changeRows, setSelectedCells } = useContext(GlobalContext)
+  const { stitches, rows, selectedCells, chartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved } = useContext(GlobalContext)
   const [viewChartsList, setViewChartsList] = useState(null)
 
   const saveCells = () => {
-    // const data = [CHART, SELECTEDCELLS]
-    // const data = { chart_name: "Testing", row_count: rows, stitch_count: stitches }
-    // console.log(selectedCells)
+    setSaved(true)
     const data = { cells: selectedCells, chart_id: chartID }
     // fetch('https://testing-save-capabilities.herokuapp.com/api/v1/charts', {
     fetch(`https://chart-api-staging.herokuapp.com/api/v1/selected_cells`, {
@@ -54,7 +52,7 @@ const Navigation = () => {
   }
 
   const loadChart = (chartID) => {
-    console.log(chartID)
+    setSaved(false)
     fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts/${chartID}`, {
     // fetch(`http://localhost:6030/api/v1/charts/10`, {
       method: 'GET',
@@ -107,8 +105,8 @@ const Navigation = () => {
 
   return (
     <div className='navigation'>
-      <button className='save' onClick={ () => { saveCells(); } }>Save</button>
-      <button className='load' onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>Load</button>
+      <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'}  onClick={ () => { saveCells(); } }>Save</button>
+      <button className='load' disabled={!isSaved} onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>Load</button>
       <div id='load-chart-dropdown' className='load-chart'>
         <ul>
           { viewChartsList }

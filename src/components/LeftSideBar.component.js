@@ -7,8 +7,9 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, setMirroring } = useContext(GlobalContext)
+  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
   const saveChart = () => {
+    setSaved(true)
     const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitches.value }
       fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
         method: 'POST',
@@ -31,7 +32,7 @@ const LeftSideBar = () => {
       <div className='left-side-bar'>
         <div className='chart-form div'>
         <h3>Create New Chart</h3>
-          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset() }}>
+          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
             <table className='chart-form table'>
               <tbody>
                 <tr className='form-control name'>
@@ -46,7 +47,7 @@ const LeftSideBar = () => {
                   <td className='numbers'><input type='text' name='stitches' className='number-input' required/></td>
                 </tr>
                 <tr>
-                  <td colSpan='2' className='generate-chart table submit'><button type='submit'>Generate</button></td>
+                  <td colSpan='2' className='generate-chart table submit'><button disabled={!isSaved} type='submit'>Generate</button></td>
                 </tr>
               </tbody>
             </table>
