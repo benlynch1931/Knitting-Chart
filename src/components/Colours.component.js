@@ -1,19 +1,24 @@
 import React, { Component, useContext, useEffect, useState } from 'react';
 import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
+import { ChromePicker } from 'react-color';
+
+import '../styles/Colours.css'
 
 const ColourComponent = () => {
-  
+
 
     const { colours, updateColours, colourPick, changeColourPick } = useContext(GlobalContext)
     const coloursFunction = Colours()
     const [refresh, setRefresh] = useState(false)
+    const [toggleDropdown, setToggleDropdown] = useState(false)
+    const [pickerColor, setPickerColor] = useState('#0000FF')
 
 
 
 
-    const addColour = (event) => {
-      const data = { colour_code: event.target.hexInput.value}
+    const addColour = (colour) => {
+      const data = { colour_code: colour}
       // fetch('https://testing-save-capabilities.herokuapp.com/api/v1/colours', {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
         method: 'POST',
@@ -87,6 +92,37 @@ const ColourComponent = () => {
       getColours()
     }, [refresh]);
 
+    const handleChangeComplete = (color, event) => {
+      console.log(color)
+    }
+
+    const handleChange = (color) => {
+      setPickerColor({pickerColor: color.hex})
+    }
+
+    const eventListeningAdd = () => {
+      console.log("eventListeningAdd")
+      document.addEventListener('click', eventListeningHandler, true)
+    }
+
+    const eventListeningHandler = (event) => {
+      if (event.target.id != 'toggle-dropdown') {
+        console.log("toggle colour picker")
+        dropMenuHandler()
+        setToggleDropdown(false)
+        eventListeningRemove()
+      }
+    }
+
+    const eventListeningRemove = () => {
+      console.log("removing event listener")
+      document.removeEventListener('click', eventListeningHandler, true)
+    }
+
+    const dropMenuHandler = () => {
+      document.getElementById('add-colours-dropmenu').classList.toggle('show')
+    }
+
 
 
 
@@ -98,24 +134,26 @@ const ColourComponent = () => {
         {loadColours()}
           <tr>
             <td colSpan='2'>
-            <button onClick={(event) => {
-              document.getElementById("add-colours-dropmenu").classList.toggle("show");
+            <button id='toggle-dropdown' disabled={toggleDropdown} onClick={(event) => {
+              dropMenuHandler(); eventListeningAdd(); setToggleDropdown(true);
             }}>+</button></td>
           </tr>
         </tbody>
       </table>
       <div id='add-colours-dropmenu' className='add-colours'>
-        <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event); event.target.reset(); document.getElementById("add-colours-dropmenu").classList.toggle("show"); }}>
+        <ChromePicker color={pickerColor} onChangeComplete={ (color) => { setPickerColor(color.hex) }}/>
+        <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); document.getElementById("add-colours-dropmenu").classList.toggle("show");} }>Add</button>
+      {/*  <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event); event.target.reset(); document.getElementById("add-colours-dropmenu").classList.toggle("show"); }}>
         <table className='colours-table-form'>
           <tbody>
-          {/*  <tr className='rgb-inputs'>
+            <tr className='rgb-inputs'>
              <td>
                 <label>RGB:</label>
               </td>
              <td><input type='text' /></td>
               <td><input type='text' /></td>
               <td><input type='text' /></td>
-           </tr> */}
+           </tr>
 
             <tr id='hex-inputs'>
               <td className='hex-inputs label'>
@@ -128,7 +166,7 @@ const ColourComponent = () => {
             </tr>
           </tbody>
         </table>
-        </form>
+        </form> */}
       </div>
       </div>
     )

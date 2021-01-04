@@ -1,0 +1,13 @@
+.add-colours button {
+  width: 221px;
+  margin-top: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  background-color: #FFFFFF;
+  /* border: solid #FF0000 */
+  border-style: none;
+  box-shadow: 0 0 5px #000000;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

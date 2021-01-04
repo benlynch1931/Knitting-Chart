@@ -10,9 +10,10 @@ h3 {
   position: absolute;
   width: 200px;
   /* height: 1000px; */
+  margin-top: 5px;
   padding-top: 0px;
   padding-bottom: 50px;
-  box-shadow: 10px 0 5px -2px #E3E3E3;
+  box-shadow: 10px 10px 5px -2px #E3E3E3;
 
   z-index: 2
 }
@@ -99,17 +100,26 @@ table, tr, td {
 
 .add-colours.show {
 
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 10px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+
+
+  /* width: 80%; */
+  position: absolute;
+  left: 212px;
+  top: 285px;
+  /* margin-left: -115.5px; */
+  /* margin-left: 10%; */
+  /* margin-top: 10px; */
+  /* margin-bottom: 40px; */
+  padding: 3px;
+  /* padding-bottom: 3px; */
 
   display: block;
 
   border-radius: 5px;
   box-shadow: 0 0 5px #000000;
 }
+
+
 
 .colours-table-form {
   margin: 5%;
