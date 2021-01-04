@@ -101,13 +101,11 @@ const ColourComponent = () => {
     }
 
     const eventListeningAdd = () => {
-      console.log("eventListeningAdd")
       document.addEventListener('click', eventListeningHandler, true)
     }
 
     const eventListeningHandler = (event) => {
-      if (event.target.id != 'toggle-dropdown') {
-        console.log("toggle colour picker")
+      if (event.target.id != 'toggle-dropdown' && !document.querySelector('#add-colours-dropmenu').contains(event.target)) {
         dropMenuHandler()
         setToggleDropdown(false)
         eventListeningRemove()
@@ -115,7 +113,6 @@ const ColourComponent = () => {
     }
 
     const eventListeningRemove = () => {
-      console.log("removing event listener")
       document.removeEventListener('click', eventListeningHandler, true)
     }
 
