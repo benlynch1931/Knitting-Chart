@@ -13,7 +13,8 @@ class GlobalContextProvider extends Component {
     chartID: null,
     selectedCells: {},
     mirroring: false,
-    isSaved: true
+    isSaved: true,
+    loggedIn: false
   }
 
   changeStitches = (newSize) => {
@@ -47,6 +48,10 @@ class GlobalContextProvider extends Component {
     this.setState({isSaved: choice})
   }
 
+  setLoggedIn = (value) => {
+    this.setState({logedIn: value})
+  }
+
 
 
   render() {
@@ -60,7 +65,8 @@ class GlobalContextProvider extends Component {
         setChartID: this.setChartID,
         setSelectedCells: this.setSelectedCells,
         setMirroring: this.setMirroring,
-        setSaved: this.setSaved
+        setSaved: this.setSaved,
+        setLoggedIn: this.setLoggedIn
       }}>
       {this.props.children}
       </GlobalContext.Provider>
