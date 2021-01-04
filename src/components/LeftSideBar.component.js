@@ -40,6 +40,7 @@ const LeftSideBar = () => {
           <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
             <table className='chart-form table'>
               <tbody>
+              <tr className='title-label'><td colSpan='2'><label>Title</label></td></tr>
                 <tr className='form-control name'>
                   <td colSpan='2' ><input type='text' name='name' className='name-input' required/></td>
                 </tr>

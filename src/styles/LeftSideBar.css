@@ -41,6 +41,10 @@ table, tr, td {
   text-align: right;
 }
 
+.title-label {
+  text-align: center;
+}
+
 .number-input {
   width: 30%;
 }
