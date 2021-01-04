@@ -38,17 +38,17 @@ const ColourComponent = () => {
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
           if(row[0] == colourPick) {
-            return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+            return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
           } else {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
           }
         } else {
           if(row[0] == colourPick) {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
           } else if(row[1] == colourPick) {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderColor: '#09DBD8', borderWidth: 2}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
           } else {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
           }
         }
       })
