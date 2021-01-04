@@ -7,16 +7,17 @@ h3 {
 }
 
 .left-side-bar {
-  position: absolute;
+  position: relative;
   width: 200px;
   /* height: 1000px; */
+  margin-bottom: 25px;
   margin-top: 5px;
   padding-top: 0px;
   padding-bottom: 50px;
   box-shadow: 10px 10px 5px -2px #1B7680;
   background-color: #AFDFE4;
 
-  z-index: 2
+  /* z-index: 2 */
 }
 
 
