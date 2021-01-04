@@ -7,7 +7,12 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+  const selectedMirrorOption = {
+    backgroundColor: '#07535B',
+    color: '#F4F5EF'
+  }
+
   const saveChart = () => {
     setSaved(true)
     const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitches.value }
@@ -58,9 +63,9 @@ const LeftSideBar = () => {
           <table>
             <tbody>
               <tr>
-                <td><button onClick={() => { setMirroring('horizontal') }}>x | x</button></td>
-                <td><button onClick={() => { setMirroring('vertical') }}  >x <br/> -- <br/> x</button></td>
-                <td><button onClick={() => { setMirroring(false) }}       >None</button></td>
+                <td><button style={mirroring == 'horizontal' ? selectedMirrorOption : {}} onClick={() => { setMirroring('horizontal') }}>x | x</button></td>
+                <td><button style={mirroring == 'vertical' ? selectedMirrorOption : {}} onClick={() => { setMirroring('vertical') }}  >x <br/> -- <br/> x</button></td>
+                <td><button style={mirroring == false ? selectedMirrorOption : {}} onClick={() => { setMirroring(false) }}       >None</button></td>
               </tr>
             </tbody>
           </table>

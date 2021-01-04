@@ -5,7 +5,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 import '../styles/navigation.css';
 
 const Navigation = () => {
-  const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved } = useContext(GlobalContext)
+  const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved, changeColourPick } = useContext(GlobalContext)
   const [viewChartsList, setViewChartsList] = useState(null)
 
   const saveCells = () => {
@@ -115,10 +115,10 @@ const Navigation = () => {
   }, [])
 
 
-
   return (
     <div className='navigation'>
-    <button className='cancel-btn' onClick={ () => { cancelChanges() }}>Cancel</button>
+      <div className='logo-div'><img src={require('./../assets/PJKnitCrochet-BIG.png').default} alt="Image not found"/></div>
+      <button className='cancel-btn' onClick={ () => { cancelChanges() }}>Cancel</button>
       <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
       <button className='load-btn' disabled={!isSaved} onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>Load</button>
       <div id='load-chart-dropdown' className='load-chart'>
