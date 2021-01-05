@@ -7,6 +7,7 @@ import '../styles/navigation.css';
 const Navigation = () => {
   const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn } = useContext(GlobalContext)
   const [viewChartsList, setViewChartsList] = useState(null)
+  const [formButton, setFormButton] = useState(false)
 
   const saveCells = () => {
     console.log("chart id " + chartID)
@@ -114,10 +115,22 @@ const Navigation = () => {
     loadChartsList()
   }, [])
 
+  const loginForm = (event) => {
+    if (formButton == 'login') {
+      if (event.target.username.value && event.target.password.value) {
+        const username = event.target.username.value
+        const password = event.target.password.value
+      } else {
+        console.log("no values provided")
+      }
+    }
+    setFormButton(false)
+  }
+
   const userAbilities = () => {
     if(loggedIn == false) {
       return (
-        <form onSubmit={ (event) => { event.preventDefault(); console.log(event.target) }}>
+        <form onSubmit={ (event) => { event.preventDefault(); loginForm(event); }}>
           <table>
           <tbody>
               <tr>
@@ -125,7 +138,7 @@ const Navigation = () => {
                   <label>Username</label>
                 </td>
                 <td>
-                  <input type='email' />
+                  <input type='text' id='username' />
                 </td>
               </tr>
               <tr>
@@ -133,15 +146,16 @@ const Navigation = () => {
                   <label>Password</label>
                 </td>
                 <td>
-                  <input type='password' />
+                  <input type='password' id='password' />
                 </td>
               </tr>
               <tr>
                 <td colSpan='2' className='login buttons cell'>
-                  <button type='submit' onClick={ () => {console.log("here")}} style={{ marginRight: 5, marginTop: 5}}>Log In</button>
-                  <button style={{ marginLeft: 5, marginTop: 5}}>Sign Up</button>
+                  <button type='submit' style={{ marginTop: 5, marginRight: 5 }} onClick={ () => {setFormButton('login') }}>Log In</button>
+                  <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </form>
@@ -150,6 +164,8 @@ const Navigation = () => {
 
     }
   }
+
+
 
 
   return (
@@ -169,7 +185,7 @@ const Navigation = () => {
             <td>
               <button className='cancel-btn' onClick={ () => { cancelChanges() }}>Cancel</button>
               <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
-              <button className='load-btn' disabled={!isSaved} onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>Load</button>
+              <button className='load-btn' disabled={!isSaved} onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>Load</button>
             </td>
           </tr>
         </tbody>
@@ -183,6 +199,52 @@ const Navigation = () => {
         <ul>
           { viewChartsList }
         </ul>
+      </div>
+      <div id='signup-dropdown' className='signup'>
+        <form>
+          <table>
+            <tbody>
+              <tr>
+                <td><label>Name:</label></td>
+              </tr>
+              <tr>
+                <td><input className='name-info' id='firstName' style={{ marginRight: 5}}/><input className='name-info' id='lastName' style={{ marginLeft: 5}}/></td>
+              </tr>
+              <br />
+              <tr>
+                <td><label>Username:</label></td>
+              </tr>
+              <tr>
+                <td><input type='text' id='signup-username'/></td>
+              </tr>
+              <br />
+              <tr>
+                <td><label>Email </label></td>
+              </tr>
+              <tr>
+                <td><input type='email' id='signup-email' /></td>
+              </tr>
+              <br />
+              <tr>
+                <td><label>Password</label></td>
+              </tr>
+              <tr>
+                <td><input type='password' id='signup-password'/></td>
+              </tr>
+              <br />
+              <tr>
+                <td><label>Confirm Password</label></td>
+              </tr>
+              <tr>
+                <td><input type='password' id='signup-confirm-password'/></td>
+              </tr>
+              <br />
+              <tr>
+                <td><button>Sign Up</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
 )

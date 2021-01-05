@@ -106,16 +106,56 @@ ul {
 }
 
 .charts-list.div:hover {
-  background-color: #0095FF;
+  /* background-color: #0095FF; */
+  background-color: #1B7680;
   color: #FFFFFF;
   cursor: pointer;
 }
 
-.show {
+.show-chart {
   display: block;
+  margin-top: 120px;
+  text-align: center;
 
 
   /* border: solid #000000; */
   background-color: #FFFFFF;
   box-shadow: 0px 4px 20px -2px #C2C2C2;
+}
+
+.signup {
+  display: none;
+  position: absolute;
+  right: 40px;
+  top: 150px;
+
+  width: 300px;
+  /* height: 390px; */
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  background-color: #AFDFE4;
+  box-shadow: 0 0 5px 5px #1B7680;
+
+  text-align: center;
+}
+
+.show-signup {
+  display: block;
+}
+
+
+.name-info {
+  margin-top: 5px;
+  width: 40%;
+}
+
+#signup-username, #signup-password, #signup-email, #signup-confirm-password {
+  margin-top: 5px;
+}
+
+table, tr, td {
+  /* border-collapse: collapse; */
+  /* border: solid #000000; */
 }
