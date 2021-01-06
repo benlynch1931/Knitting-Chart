@@ -92,6 +92,8 @@ img {
   left: 50%;
   margin-left: -90px;
   margin-top: 20px;
+
+  z-index: 4;
 }
 
 ul {
