@@ -7,6 +7,7 @@ class GlobalContextProvider extends Component {
   state = {
     stitchCount: null,
     rowCount: null,
+
     colourPick: "#FFFFFF",
     // colours: [['#000000', '#FF0000'], ['#FFFFFF', '#00FF00'], ['#0000FF', '#FFFF00']]
     colours: [],
@@ -25,6 +26,7 @@ class GlobalContextProvider extends Component {
 
   setStitchCount = (newSize) => {
     this.setState({ stitchCount: newSize})
+
   }
 
   setRowCount = (newSize) => {

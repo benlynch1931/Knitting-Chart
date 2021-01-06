@@ -5,7 +5,9 @@ import '../styles/Grid.css';
 
 const Grid = () => {
 
+
   const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
+
   const gridCells = []
   const currentSelectedCells = selectedCells
 
@@ -86,6 +88,7 @@ const Grid = () => {
       setSelectedCells({...currentSelectedCells, [selectedID]: colourPick })
     }
   }
+
 
 
   if (stitchCount == null || rowCount == null) {

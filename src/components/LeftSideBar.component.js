@@ -7,7 +7,9 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
+
   const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+
   const selectedMirrorOption = {
     backgroundColor: '#07535B',
     color: '#F4F5EF'
