@@ -14,7 +14,13 @@ class GlobalContextProvider extends Component {
     selectedCells: {},
     mirroring: false,
     isSaved: true,
-    loggedIn: false
+    loggedIn: false,
+    disabledButton: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      // color: 'rgba(0, 0, 0, 0)',
+      // borderColor: 'rgba(0, 0, 0, 0)',
+      // boxShadow: '0px 0px 0px rgba(0, 0, 0, 0)'
+    }
   }
 
   changeStitches = (newSize) => {

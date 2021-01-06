@@ -8,7 +8,7 @@ import '../styles/Colours.css'
 const ColourComponent = () => {
 
 
-    const { colours, updateColours, colourPick, changeColourPick } = useContext(GlobalContext)
+    const { colours, updateColours, colourPick, changeColourPick, disabledButton } = useContext(GlobalContext)
     const coloursFunction = Colours()
     const [refresh, setRefresh] = useState(false)
     const [toggleDropdown, setToggleDropdown] = useState(false)
@@ -18,6 +18,7 @@ const ColourComponent = () => {
 
 
     const addColour = (colour) => {
+      setToggleDropdown(false)
       const data = { colour_code: colour}
       // fetch('https://testing-save-capabilities.herokuapp.com/api/v1/colours', {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
@@ -29,7 +30,9 @@ const ColourComponent = () => {
         },
         body: JSON.stringify(data)
       })
+      .then(res => getColours())
       setRefresh(!refresh)
+      document.getElementById("add-colours-dropmenu").classList.toggle("show");
       // coloursFunction.add(event.target.hexInput.value);
     }
 
@@ -88,9 +91,10 @@ const ColourComponent = () => {
       getColours()
     }, []);
 
-    useEffect(() => {
-      getColours()
-    }, [refresh]);
+    // useEffect(() => {
+    //   console.log('Executing!')
+    //   getColours()
+    // }, [refresh]);
 
     const handleChangeComplete = (color, event) => {
       console.log(color)
@@ -131,7 +135,7 @@ const ColourComponent = () => {
         {loadColours()}
           <tr>
             <td colSpan='2'>
-            <button id='toggle-dropdown' disabled={toggleDropdown} onClick={(event) => {
+            <button id='toggle-dropdown' style={toggleDropdown ? disabledButton : {} } disabled={toggleDropdown} onClick={(event) => {
               dropMenuHandler(); eventListeningAdd(); setToggleDropdown(true);
             }}>+</button></td>
           </tr>
@@ -139,7 +143,7 @@ const ColourComponent = () => {
       </table>
       <div id='add-colours-dropmenu' className='add-colours'>
         <ChromePicker color={pickerColor} onChangeComplete={ (color) => { setPickerColor(color.hex) }}/>
-        <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); document.getElementById("add-colours-dropmenu").classList.toggle("show");} }>Add</button>
+        <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); } }>Add</button>
       {/*  <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event); event.target.reset(); document.getElementById("add-colours-dropmenu").classList.toggle("show"); }}>
         <table className='colours-table-form'>
           <tbody>

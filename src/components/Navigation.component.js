@@ -5,7 +5,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 import '../styles/navigation.css';
 
 const Navigation = () => {
-  const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn } = useContext(GlobalContext)
+  const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn, disabledButton } = useContext(GlobalContext)
   const [viewChartsList, setViewChartsList] = useState(null)
   const [formButton, setFormButton] = useState(false)
 
@@ -184,8 +184,8 @@ const Navigation = () => {
           <tr>
             <td>
               <button className='cancel-btn' onClick={ () => { cancelChanges() }}>Cancel</button>
-              <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
-              <button className='load-btn' disabled={!isSaved} onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>Load</button>
+              <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} style={ isSaved ? disabledButton : {} } disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
+              <button className='load-btn' disabled={!isSaved} style={ isSaved ? {} : disabledButton } onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>Load</button>
             </td>
           </tr>
         </tbody>
