@@ -4,8 +4,6 @@ import { GlobalContext } from '../contexts/GlobalContext.js';
 import '../styles/Grid.css';
 
 const Grid = () => {
-
-
   const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
 
   const gridCells = []
@@ -16,13 +14,8 @@ const Grid = () => {
   const renderGrid = () => {
     let jsx = []
     for(let i = 0; i < rowCount; i++) {
-      jsx.push(
-        <tr>
-          {renderStitches(i+1)}
-        </tr>
-      )
+      jsx.push(<tr>{renderStitches(i+1)}</tr>)
     }
-    console.log(gridCells)
     return jsx
   }
 
@@ -35,19 +28,9 @@ const Grid = () => {
     for(let y=0; y < stitchCount; y++) {
       const id = `${rowNo}_${y+1}`
       rowCells.push(id)
-      let styling;
+      let styling = { width: 30, height: 30, backgroundColor: '#FFFFFF' }
       if (id in selectedCells) {
-        styling = {
-          width: 30,
-          height: 30,
-          backgroundColor: selectedCells.[id]
-        }
-      } else {
-        styling = {
-          width: 30,
-          height: 30,
-          backgroundColor: '#FFFFFF'
-        }
+        styling.backgroundColor = selectedCells.[id]
       }
       stitchJSX.push(<td><div className='stitch' id={id} style={styling} onClick={(event) => { event.preventDefault(); selectingCells(id) }}></div></td>)
     }
@@ -56,10 +39,11 @@ const Grid = () => {
   }
 
   const selectingCells = (selectedID) => {
-    // setSaved(false)
     let findCellColumn = null
     let findCellRow = null
+
     if ( mirroring == 'horizontal' ) {
+
       gridCells.forEach((cellRow, idxRow) => {
         if (cellRow.includes(selectedID)) {
           cellRow.forEach((cell, idxCell) => {
@@ -70,6 +54,7 @@ const Grid = () => {
           });
         }
       });
+
     } else if ( mirroring == 'vertical' ) {
 
       gridCells.forEach((cellRow, idxRow) => {
@@ -84,7 +69,7 @@ const Grid = () => {
       });
 
     } else if ( mirroring == false ) {
-      console.log("I'm in the right place!")
+
       setSelectedCells({...currentSelectedCells, [selectedID]: colourPick })
     }
   }
@@ -92,12 +77,12 @@ const Grid = () => {
 
 
   if (stitchCount == null || rowCount == null) {
-    return (
-      <div className='grid'>
 
-      </div>
+    return (
+      <div className='grid'></div>
     )
   } else {
+
     return (
       <div className='grid'>
         <table>
@@ -107,6 +92,7 @@ const Grid = () => {
         </table>
       </div>
     )
+
   }
 }
 
