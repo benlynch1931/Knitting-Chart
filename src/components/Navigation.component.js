@@ -48,7 +48,7 @@ const Navigation = () => {
 
   const formatChartsList = (chartsInfo) => {
      chartsInfo = chartsInfo.map((chart) => {
-      return (<li id={`chart_${chart.id}`} className='charts-list'><div className='charts-list div' onClick={ () => { loadChart(chart.id); document.getElementById("load-chart-dropdown").classList.toggle("show"); } }>{chart.name}</div></li>)
+      return (<li id={`chart_${chart.id}`} className='charts-list'><div className='charts-list div' onClick={ () => { loadChart(chart.id); document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>{chart.name}</div></li>)
     })
     // console.log(viewChartsList)
     setViewChartsList(chartsInfo)
