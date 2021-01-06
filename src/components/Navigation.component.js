@@ -5,7 +5,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 import '../styles/navigation.css';
 
 const Navigation = () => {
-  const { stitches, rows, selectedCells, chartID, setChartID, changeStitches, changeRows, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn, disabledButton } = useContext(GlobalContext)
+  const { stitchCount, rowCount, selectedCells, chartID, setChartID, setStitchCount, setRowCount, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn, disabledButton } = useContext(GlobalContext)
   const [viewChartsList, setViewChartsList] = useState(null)
   const [formButton, setFormButton] = useState(false)
 
@@ -74,10 +74,8 @@ const Navigation = () => {
 
   const setChartInfo = (chart) => {
     // return true
-    console.log("rows: " + chart.rows)
-    console.log("stitches: " + chart.stitches)
-    changeRows(chart.rows);
-    changeStitches(chart.stitches);
+    setRowCount(chart.rows);
+    setStitchCount(chart.stitches);
     setChartID(chart.id)
     loadCellsForChart(chart.id);
   }
@@ -105,8 +103,8 @@ const Navigation = () => {
   const cancelChanges = () => {
     setChartID(null);
     setSelectedCells({});
-    changeStitches(null);
-    changeRows(null);
+    setStitchCount(null);
+    setRowCount(null);
     changeColourPick('#FFFFFF');
     setSaved(true);
   }

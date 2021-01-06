@@ -7,7 +7,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitches, rows, changeStitches, changeRows, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+  const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
   const selectedMirrorOption = {
     backgroundColor: '#07535B',
     color: '#F4F5EF'
@@ -15,7 +15,7 @@ const LeftSideBar = () => {
 
   const saveChart = () => {
     setSaved(true)
-    const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitches.value }
+    const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitchCount.value }
       fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
         method: 'POST',
         headers: {
@@ -37,7 +37,7 @@ const LeftSideBar = () => {
       <div className='left-side-bar'>
         <div className='chart-form div'>
         <h3>Create New Chart</h3>
-          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); changeStitches(event.target.stitches.value); changeRows(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
+          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); setStitchCount(event.target.stitches.value); setRowCount(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
             <table className='chart-form table'>
               <tbody>
               <tr className='title-label'><td colSpan='2'><label>Title</label></td></tr>

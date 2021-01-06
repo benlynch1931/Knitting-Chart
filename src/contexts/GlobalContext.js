@@ -5,8 +5,8 @@ export const GlobalContext = createContext();
 
 class GlobalContextProvider extends Component {
   state = {
-    stitches: null,
-    rows: null,
+    stitchCount: null,
+    rowCount: null,
     colourPick: "#FFFFFF",
     // colours: [['#000000', '#FF0000'], ['#FFFFFF', '#00FF00'], ['#0000FF', '#FFFF00']]
     colours: [],
@@ -23,12 +23,12 @@ class GlobalContextProvider extends Component {
     }
   }
 
-  changeStitches = (newSize) => {
-    this.setState({ stitches: newSize})
+  setStitchCount = (newSize) => {
+    this.setState({ stitchCount: newSize})
   }
 
-  changeRows = (newSize) => {
-    this.setState({ rows: newSize })
+  setRowCount = (newSize) => {
+    this.setState({ rowCount: newSize })
   }
 
   changeColourPick = (newColour) => {
@@ -64,10 +64,10 @@ class GlobalContextProvider extends Component {
     return (
       <GlobalContext.Provider value={{
         ...this.state,
-        changeStitches: this.changeStitches,
+        setStitchCount: this.setStitchCount,
         changeColourPick: this.changeColourPick,
         updateColours: this.updateColours,
-        changeRows: this.changeRows,
+        setRowCount: this.setRowCount,
         setChartID: this.setChartID,
         setSelectedCells: this.setSelectedCells,
         setMirroring: this.setMirroring,
