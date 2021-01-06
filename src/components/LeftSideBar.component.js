@@ -7,7 +7,6 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-
   const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
 
   const selectedMirrorOption = {
@@ -30,19 +29,21 @@ const LeftSideBar = () => {
       })
     .then(res => res.json())
     .then(data => setChartID(data['charts'][0]['id']))
-
   }
 
 
 
     return (
       <div className='left-side-bar'>
+
         <div className='chart-form div'>
-        <h3>Create New Chart</h3>
+          <h3>Create New Chart</h3>
           <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); setStitchCount(event.target.stitches.value); setRowCount(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
             <table className='chart-form table'>
               <tbody>
-              <tr className='title-label'><td colSpan='2'><label>Title</label></td></tr>
+              <tr className='title-label'>
+                <td colSpan='2'><label>Title</label></td>
+              </tr>
                 <tr className='form-control name'>
                   <td colSpan='2' ><input type='text' name='name' className='name-input' required/></td>
                 </tr>
