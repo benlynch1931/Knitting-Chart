@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 
 class GlobalContextProvider extends Component {
   state = {
-    stitches: null,
+    stitchCount: null,
     rows: null,
     colourPick: "#FFFFFF",
     // colours: [['#000000', '#FF0000'], ['#FFFFFF', '#00FF00'], ['#0000FF', '#FFFF00']]
@@ -23,7 +23,7 @@ class GlobalContextProvider extends Component {
     }
   }
 
-  changeStitches = (newSize) => {
+  setStitchCount = (newSize) => {
     this.setState({ stitches: newSize})
   }
 
@@ -64,7 +64,7 @@ class GlobalContextProvider extends Component {
     return (
       <GlobalContext.Provider value={{
         ...this.state,
-        changeStitches: this.changeStitches,
+        setStitchCount: this.setStitchCount,
         changeColourPick: this.changeColourPick,
         updateColours: this.updateColours,
         changeRows: this.changeRows,

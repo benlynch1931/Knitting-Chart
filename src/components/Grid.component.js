@@ -5,7 +5,7 @@ import '../styles/Grid.css';
 
 const Grid = () => {
 
-  const { stitches, rows, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
+  const { stitchCount, rows, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
   const gridCells = []
   const currentSelectedCells = selectedCells
 
@@ -30,7 +30,7 @@ const Grid = () => {
     const stitchJSX = []
     const rowCells = []
 
-    for(let y=0; y < stitches; y++) {
+    for(let y=0; y < stitchCount; y++) {
       const id = `${rowNo}_${y+1}`
       rowCells.push(id)
       let styling;
@@ -88,7 +88,7 @@ const Grid = () => {
   }
 
 
-  if (stitches == null || rows == null) {
+  if (stitchCount == null || rows == null) {
     return (
       <div className='grid'>
 
