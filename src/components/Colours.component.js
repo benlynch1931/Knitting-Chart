@@ -33,19 +33,21 @@ const ColourComponent = () => {
       .then(res => getColours())
       setRefresh(!refresh)
       document.getElementById("add-colours-dropmenu").classList.toggle("show");
-      // coloursFunction.add(event.target.hexInput.value);
     }
 
-    const loadColours = () => {
-      // console.log(colours)
+    const renderColours = () => {
+
       const renderJSX = colours.map((row) => {
         if(row[1] == null) {
+
           if(row[0] == colourPick) {
             return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
           } else {
             return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
           }
+
         } else {
+
           if(row[0] == colourPick) {
             return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
           } else if(row[1] == colourPick) {
@@ -53,6 +55,7 @@ const ColourComponent = () => {
           } else {
             return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
           }
+
         }
       })
       return renderJSX
@@ -75,15 +78,12 @@ const ColourComponent = () => {
     const getColours = () => {
       fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
         method: 'GET',
-        // mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         }
       })
-      // .then(res => console.log(res.json()))
       .then(res => res.json())
-      // .then(data => console.log(data.colours[1].colour_code))
       .then(data => formatColours(data.colours))
     }
 
@@ -91,10 +91,6 @@ const ColourComponent = () => {
       getColours()
     }, []);
 
-    // useEffect(() => {
-    //   console.log('Executing!')
-    //   getColours()
-    // }, [refresh]);
 
     const handleChangeComplete = (color, event) => {
       console.log(color)
@@ -105,10 +101,10 @@ const ColourComponent = () => {
     }
 
     const eventListeningAdd = () => {
-      document.addEventListener('click', eventListeningHandler, true)
+      document.addEventListener('click', eventListenerCallback, true)
     }
 
-    const eventListeningHandler = (event) => {
+    const eventListenerCallback = (event) => {
       if (event.target.id != 'toggle-dropdown' && !document.querySelector('#add-colours-dropmenu').contains(event.target)) {
         dropMenuHandler()
         setToggleDropdown(false)
@@ -117,7 +113,7 @@ const ColourComponent = () => {
     }
 
     const eventListeningRemove = () => {
-      document.removeEventListener('click', eventListeningHandler, true)
+      document.removeEventListener('click', eventListenerCallback, true)
     }
 
     const dropMenuHandler = () => {
@@ -130,45 +126,25 @@ const ColourComponent = () => {
 
     return (
       <div className='colours'>
-      <table className='colours table'>
-        <tbody>
-        {loadColours()}
-          <tr>
-            <td colSpan='2'>
-            <button id='toggle-dropdown' style={toggleDropdown ? disabledButton : {} } disabled={toggleDropdown} onClick={(event) => {
-              dropMenuHandler(); eventListeningAdd(); setToggleDropdown(true);
-            }}>+</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <div id='add-colours-dropmenu' className='add-colours'>
-        <ChromePicker color={pickerColor} onChangeComplete={ (color) => { setPickerColor(color.hex) }}/>
-        <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); } }>Add</button>
-      {/*  <form id='add-colours-form' onSubmit={(event) => {event.preventDefault(); addColour(event); event.target.reset(); document.getElementById("add-colours-dropmenu").classList.toggle("show"); }}>
-        <table className='colours-table-form'>
-          <tbody>
-            <tr className='rgb-inputs'>
-             <td>
-                <label>RGB:</label>
-              </td>
-             <td><input type='text' /></td>
-              <td><input type='text' /></td>
-              <td><input type='text' /></td>
-           </tr>
 
-            <tr id='hex-inputs'>
-              <td className='hex-inputs label'>
-                <label>Hex: #</label>
+        <table className='colours table'>
+          <tbody>
+            {renderColours()}
+            <tr>
+              <td colSpan='2'>
+                <button id='toggle-dropdown' style={toggleDropdown ? disabledButton : {} } disabled={toggleDropdown} onClick={(event) => {
+                  dropMenuHandler(); eventListeningAdd(); setToggleDropdown(true);
+                }}>+</button>
               </td>
-              <td colSpan='2'><input type='text' name='hexInput' /></td>
-            </tr>
-            <tr id='add-colour-submit'>
-              <td colSpan='4'><button type='submit'>Add</button></td>
             </tr>
           </tbody>
         </table>
-        </form> */}
-      </div>
+
+        <div id='add-colours-dropmenu' className='add-colours'>
+          <ChromePicker color={pickerColor} onChangeComplete={ (color) => { setPickerColor(color.hex) }}/>
+          <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); } }>Add</button>
+        </div>
+        
       </div>
     )
 
