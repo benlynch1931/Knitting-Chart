@@ -16,7 +16,8 @@ const LeftSideBar = () => {
 
   const saveChart = () => {
     setSaved(true)
-    const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitchCount.value }
+    console.log(event.target.name.value)
+    const data = { chart_name: event.target.name.value, row_count: event.target.rows.value, stitch_count: event.target.stitches.value }
       fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts`, {
         method: 'POST',
         headers: {
@@ -38,7 +39,7 @@ const LeftSideBar = () => {
 
         <div className='chart-form div'>
           <h3>Create New Chart</h3>
-          <form id='generate-chart' onSubmit={(event) => {event.preventDefault(); setStitchCount(event.target.stitches.value); setRowCount(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(), setSaved(false) }}>
+          <form id='generate-chart' onSubmit={(event) => { event.preventDefault(); setStitchCount(event.target.stitches.value); setRowCount(event.target.rows.value); saveChart(); document.getElementById('generate-chart').reset(); }}>
             <table className='chart-form table'>
               <tbody>
               <tr className='title-label'>
