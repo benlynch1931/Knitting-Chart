@@ -1,16 +1,16 @@
 .grid-inner {
   margin-left: 33px;
-  width: calc(100vw - 339px);
+  max-width: calc(100vw - 339px);
   height: calc(100vh);
   overflow: scroll;
 }
+
+
 
 .grid-outer {
   position: absolute;
   top: 150px;
   left: 220px;
-  /* padding: 20px; */
-  flex-grow: 1;
 }
 
 .numbers-stitch {
@@ -59,10 +59,6 @@
 .grid-outer table, .grid-outer tr, .grid-outer td {
   border-collapse: collapse;
   border: solid #000000;
-}
-
-.grid-outer table {
-  margin: auto
 }
 
 .grid-outer td {
