@@ -13,12 +13,46 @@ const Grid = () => {
 
   const renderGrid = () => {
     let jsx = []
+    // jsx.push(<tr>{renderStitchCount()}</tr>)
+    // console.log("jsx: " + jsx)
     for(let i = 0; i < rowCount; i++) {
       jsx.push(<tr>{renderStitches(i+1)}</tr>)
     }
     return jsx
   }
 
+  const scrollStitchCount = () => {
+    scrollX = document.getElementById('chart').scrollLeft
+    let divs = document.getElementsByClassName('stitch-count')
+    console.log(divs)
+    for(let i = 0; i < divs.length; i++ ) {
+      divs[i].scrollLeft = scrollX
+    }
+  }
+  const scrollRowCount = () => {
+    scrollY = document.getElementById('chart').scrollTop
+    let divs = document.getElementsByClassName('row-count')
+    console.log(divs)
+    for(let i = 0; i < divs.length; i++ ) {
+      divs[i].scrollTop = scrollY
+    }
+  }
+
+  const renderStitchCount = () => {
+    let countJSX = []
+    for(let i = 1; i <= stitchCount; i++) {
+      countJSX.push(<div className='numbers-stitch'>{i}</div>)
+    }
+    return countJSX
+  }
+
+  const renderRowCount = () => {
+    let countJSX = []
+    for(let i = 1; i <= rowCount; i++) {
+      countJSX.push(<div className='numbers-row'>{i}</div>)
+    }
+    return countJSX
+  }
 
 
   const renderStitches = (rowNo) => {
@@ -79,17 +113,23 @@ const Grid = () => {
   if (stitchCount == null || rowCount == null) {
 
     return (
-      <div className='grid'></div>
+      <div className='grid-outer'></div>
     )
   } else {
 
     return (
-      <div className='grid'>
-        <table>
-          <tbody>
-          {renderGrid()}
-          </tbody>
-        </table>
+      <div className='grid-outer'>
+        <div className='stitch-count top'>{renderStitchCount()}</div>
+        <div className='row-count'>{renderRowCount()}</div>
+        <div className='grid-inner' id='chart' onScroll={() => { scrollStitchCount(); scrollRowCount() }}>
+          <table>
+            <tbody>
+            {renderGrid()}
+            </tbody>
+          </table>
+        </div>
+        <div className='row-count right'>{renderRowCount()}</div>
+        <div className='stitch-count bottom'>{renderStitchCount()}</div>
       </div>
     )
 

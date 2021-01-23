@@ -1,27 +1,70 @@
-
-
-.grid {
-  position: absolute;
-  top: 100px;
-  padding-top: 50px;
-  width: 100% - 200px;
-  height: 100%;
-  /* margin-left: 205px; */
-  left: 50%;
-  transform: translateX(-50%);
-  flex-grow: 1;
-
+.grid-inner {
+  margin-left: 33px;
+  width: calc(100vw - 339px);
+  height: calc(100vh);
+  overflow: scroll;
 }
 
-.grid table, .grid tr, .grid td {
+.grid-outer {
+  position: absolute;
+  top: 150px;
+  left: 220px;
+  /* padding: 20px; */
+  flex-grow: 1;
+}
+
+.numbers-stitch {
+  height: 20px;
+  flex: 0 0 33px;
+  text-align: center;
+}
+
+.numbers-row {
+  height: 33px;
+  text-align: center;
+  width: 33px!important;
+  /* border: 1px solid #000000; */
+  line-height: 33px;
+}
+
+.stitch-count {
+  margin-left: 33px;
+  width: calc(100vw - 339px);
+  display: inline-flex;
+  overflow: scroll;
+  z-index: 3;
+}
+
+.row-count {
+  position: absolute;
+  height: calc(100vh);
+  width: 33px;
+  overflow: scroll;
+  z-index: 3;
+}
+
+.row-count.right {
+  left: calc(100vw - 306px);
+  top: 20px;
+}
+
+.top {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0
+}
+
+.grid-outer table, .grid-outer tr, .grid-outer td {
   border-collapse: collapse;
   border: solid #000000;
 }
 
-.grid table {
+.grid-outer table {
   margin: auto
 }
 
-.grid td {
+.grid-outer td {
   padding: 0;
 }
