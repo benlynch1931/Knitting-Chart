@@ -173,7 +173,16 @@ table, tr, td {
   width: 180px;
   margin: 20px auto;
   /* margin-top: 20px; */
+}
 
+.orientationDiv {
+  width: 120px;
+  margin: 20px auto;
+}
+
+.orientationDiv button {
+  width: 60px;
+  outline: none
 }
 
 .mirrorOptionDiv table, .mirrorOptionDiv tr, .mirrorOptionDiv td {

@@ -74,14 +74,10 @@ const LeftSideBar = () => {
               </tr>
             </tbody>
           </table>
-          <table style={{ textAlign: 'center' }}>
-            <tbody>
-              <tr>
-                <td><button style={orientation == 'left' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('left') }}>Left</button></td>
-                <td><button style={orientation == 'right' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('right') }}  >Right</button></td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+        <div className='orientationDiv'>
+          <button style={orientation == 'left' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('left') }}>Left</button>
+          <button style={orientation == 'right' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('right') }}  >Right</button>
         </div>
         <hr />
         <ColourComponent />
