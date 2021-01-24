@@ -16,6 +16,7 @@ class GlobalContextProvider extends Component {
     mirroring: false,
     isSaved: true,
     loggedIn: false,
+    orientation: 'right',
     disabledButton: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       // color: 'rgba(0, 0, 0, 0)',
@@ -27,6 +28,10 @@ class GlobalContextProvider extends Component {
   setStitchCount = (newSize) => {
     this.setState({ stitchCount: newSize})
 
+  }
+
+  changeOrientation = (newOrientation) => {
+    this.setState({ orientation: newOrientation })
   }
 
   setRowCount = (newSize) => {
@@ -74,7 +79,8 @@ class GlobalContextProvider extends Component {
         setSelectedCells: this.setSelectedCells,
         setMirroring: this.setMirroring,
         setSaved: this.setSaved,
-        setLoggedIn: this.setLoggedIn
+        setLoggedIn: this.setLoggedIn,
+        changeOrientation: this.changeOrientation
       }}>
       {this.props.children}
       </GlobalContext.Provider>
