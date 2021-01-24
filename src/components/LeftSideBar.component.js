@@ -7,7 +7,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+  const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved, orientation, changeOrientation } = useContext(GlobalContext)
 
   const selectedMirrorOption = {
     backgroundColor: '#07535B',
@@ -71,6 +71,14 @@ const LeftSideBar = () => {
                 <td><button style={mirroring == 'horizontal' ? selectedMirrorOption : {}} onClick={() => { setMirroring('horizontal') }}>x | x</button></td>
                 <td><button style={mirroring == 'vertical' ? selectedMirrorOption : {}} onClick={() => { setMirroring('vertical') }}  >x <br/> -- <br/> x</button></td>
                 <td><button style={mirroring == false ? selectedMirrorOption : {}} onClick={() => { setMirroring(false) }}       >None</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <table style={{ textAlign: 'center' }}>
+            <tbody>
+              <tr>
+                <td><button style={orientation == 'left' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('left') }}>Left</button></td>
+                <td><button style={orientation == 'right' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('right') }}  >Right</button></td>
               </tr>
             </tbody>
           </table>

@@ -4,10 +4,14 @@ import { GlobalContext } from '../contexts/GlobalContext.js';
 import '../styles/Grid.css';
 
 const Grid = () => {
-  const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
+  const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved, orientation } = useContext(GlobalContext)
 
   const gridCells = []
   const currentSelectedCells = selectedCells
+
+  useEffect(() => {
+    renderStitchCount()
+  }, [orientation])
 
 
 
@@ -50,7 +54,11 @@ const Grid = () => {
     for(let i = 1; i <= stitchCount; i++) {
       countJSX.push(<div className='numbers-stitch'>{i}</div>)
     }
-    return countJSX.reverse()
+    if (orientation === 'right') {
+      return countJSX.reverse()
+    } else {
+      return countJSX
+    }
   }
 
   const renderRowCount = () => {
