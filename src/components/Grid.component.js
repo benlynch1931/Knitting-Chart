@@ -18,7 +18,14 @@ const Grid = () => {
     for(let i = 0; i < rowCount; i++) {
       jsx.push(<tr>{renderStitches(i+1)}</tr>)
     }
+    // setTimeout(() => {setGridHeight()}, 1000)
     return jsx
+  }
+
+  const setGridHeight = () => {
+    let height = document.getElementsByClassName('left-side-bar')[0].clientHeight
+    console.log(height)
+    document.getElementById('chart').style.height = height;
   }
 
   const scrollStitchCount = () => {
