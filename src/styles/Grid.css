@@ -1,7 +1,7 @@
 .grid-inner {
   margin-left: 33px;
   max-width: calc(100vw - 339px);
-  /* height: calc(100vh - 300px); */
+  max-height: calc(100vh);
   overflow: auto;
 
   -ms-overflow-style: none;
