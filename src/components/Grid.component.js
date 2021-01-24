@@ -50,7 +50,7 @@ const Grid = () => {
     for(let i = 1; i <= stitchCount; i++) {
       countJSX.push(<div className='numbers-stitch'>{i}</div>)
     }
-    return countJSX
+    return countJSX.reverse()
   }
 
   const renderRowCount = () => {
@@ -58,7 +58,7 @@ const Grid = () => {
     for(let i = 1; i <= rowCount; i++) {
       countJSX.push(<div className='numbers-row'>{i}</div>)
     }
-    return countJSX
+    return countJSX.reverse()
   }
 
 
