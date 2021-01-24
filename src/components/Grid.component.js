@@ -4,10 +4,14 @@ import { GlobalContext } from '../contexts/GlobalContext.js';
 import '../styles/Grid.css';
 
 const Grid = () => {
-  const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved } = useContext(GlobalContext)
+  const { stitchCount, rowCount, colourPick, selectedCells, setSelectedCells, mirroring, setSaved, orientation } = useContext(GlobalContext)
 
   const gridCells = []
   const currentSelectedCells = selectedCells
+
+  useEffect(() => {
+    renderStitchCount()
+  }, [orientation])
 
 
 
@@ -18,7 +22,14 @@ const Grid = () => {
     for(let i = 0; i < rowCount; i++) {
       jsx.push(<tr>{renderStitches(i+1)}</tr>)
     }
+    // setTimeout(() => {setGridHeight()}, 1000)
     return jsx
+  }
+
+  const setGridHeight = () => {
+    let height = document.getElementsByClassName('left-side-bar')[0].clientHeight
+    console.log(height)
+    document.getElementById('chart').style.height = height;
   }
 
   const scrollStitchCount = () => {
@@ -43,7 +54,11 @@ const Grid = () => {
     for(let i = 1; i <= stitchCount; i++) {
       countJSX.push(<div className='numbers-stitch'>{i}</div>)
     }
-    return countJSX
+    if (orientation === 'right') {
+      return countJSX.reverse()
+    } else {
+      return countJSX
+    }
   }
 
   const renderRowCount = () => {
@@ -51,7 +66,7 @@ const Grid = () => {
     for(let i = 1; i <= rowCount; i++) {
       countJSX.push(<div className='numbers-row'>{i}</div>)
     }
-    return countJSX
+    return countJSX.reverse()
   }
 
 

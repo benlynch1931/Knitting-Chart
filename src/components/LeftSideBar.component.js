@@ -7,7 +7,7 @@ import { GlobalContext } from '../contexts/GlobalContext.js'
 
 const LeftSideBar = () => {
 
-  const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved } = useContext(GlobalContext)
+  const { stitchCount, rowCount, setStitchCount, setRowCount, chartID, setChartID, mirroring, setMirroring, setSaved, isSaved, orientation, changeOrientation } = useContext(GlobalContext)
 
   const selectedMirrorOption = {
     backgroundColor: '#07535B',
@@ -74,6 +74,10 @@ const LeftSideBar = () => {
               </tr>
             </tbody>
           </table>
+        </div>
+        <div className='orientationDiv'>
+          <button style={orientation == 'left' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('left') }}>Left</button>
+          <button style={orientation == 'right' ? selectedMirrorOption : {}} onClick={() => { changeOrientation('right') }}  >Right</button>
         </div>
         <hr />
         <ColourComponent />
