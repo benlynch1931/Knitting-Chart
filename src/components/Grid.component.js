@@ -28,14 +28,12 @@ const Grid = () => {
 
   const setGridHeight = () => {
     let height = document.getElementsByClassName('left-side-bar')[0].clientHeight
-    console.log(height)
     document.getElementById('chart').style.height = height;
   }
 
   const scrollStitchCount = () => {
     scrollX = document.getElementById('chart').scrollLeft
     let divs = document.getElementsByClassName('stitch-count')
-    console.log(divs)
     for(let i = 0; i < divs.length; i++ ) {
       divs[i].scrollLeft = scrollX
     }
@@ -43,7 +41,6 @@ const Grid = () => {
   const scrollRowCount = () => {
     scrollY = document.getElementById('chart').scrollTop
     let divs = document.getElementsByClassName('row-count')
-    console.log(divs)
     for(let i = 0; i < divs.length; i++ ) {
       divs[i].scrollTop = scrollY
     }
