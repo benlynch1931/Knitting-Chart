@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { Component, useContext, useEffect, useState, useRef } from 'react';
 import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
 import { ChromePicker } from 'react-color';
@@ -7,8 +7,10 @@ import '../styles/Colours.css'
 
 const ColourComponent = () => {
 
+    let initialRender = useRef(true)
 
-    const { colours, updateColours, colourPick, changeColourPick, disabledButton } = useContext(GlobalContext)
+
+    const { colours, updateColours, colourPick, changeColourPick, disabledButton, user } = useContext(GlobalContext)
     const coloursFunction = Colours()
     const [refresh, setRefresh] = useState(false)
     const [toggleDropdown, setToggleDropdown] = useState(false)
@@ -21,12 +23,13 @@ const ColourComponent = () => {
       setToggleDropdown(false)
       const data = { colour_code: colour}
       // fetch('https://testing-save-capabilities.herokuapp.com/api/v1/colours', {
-      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours', {
+      // fetch(`http://localhost:6030/api/v1/colours`, {
+      fetch('https://knitting-chart.herokuapp.com/api/v1/colours', {
         method: 'POST',
-        mode: 'no-cors',
+        // mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+          'Content-Type': 'application/json'
+          // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         },
         body: JSON.stringify(data)
       })
@@ -37,28 +40,38 @@ const ColourComponent = () => {
 
     const renderColours = () => {
 
-      const renderJSX = colours.map((row) => {
-        if(row[1] == null) {
+      if (localStorage.getItem('name')) {
 
-          if(row[0] == colourPick) {
-            return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
-          } else {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
-          }
-
+        if (colours.length == 0) {
+          return (
+            <tr><td colSpan='2'>Please Wait</td></tr>
+          )
         } else {
 
-          if(row[0] == colourPick) {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
-          } else if(row[1] == colourPick) {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
-          } else {
-            return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
-          }
+          const renderJSX = colours.map((row) => {
+            if(row[1] == null) {
 
+              if(row[0] == colourPick) {
+                return (<tr><td><button id=''style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+              } else {
+                return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td></td></tr>)
+              }
+
+            } else {
+
+              if(row[0] == colourPick) {
+                return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+              } else if(row[1] == colourPick) {
+                return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderColor: '#09DBD8', borderWidth: 3, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+              } else {
+                return (<tr><td><button id='' style={{backgroundColor: `${row[0]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[0])}}></button></td><td><button id='' style={{backgroundColor: `${row[1]}`, borderStyle: 'solid'}} onClick={() => { changeColourPick(row[1])}}></button></td></tr>)
+              }
+
+            }
+          })
+          return renderJSX
         }
-      })
-      return renderJSX
+      }
     }
 
     const formatColours = (jsonColours) => {
@@ -76,11 +89,13 @@ const ColourComponent = () => {
     }
 
     const getColours = () => {
-      fetch('https://chart-api-staging.herokuapp.com/api/v1/colours/', {
+      // fetch(`http://localhost:6030/api/v1/colours/`, {
+      fetch('https://knitting-chart.herokuapp.com/api/v1/colours/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
         }
       })
       .then(res => res.json())
@@ -88,8 +103,12 @@ const ColourComponent = () => {
     }
 
     useEffect(() => {
-      getColours()
-    }, []);
+      if (initialRender.current && !localStorage.getItem('name')) {
+        initialRender.current = false
+      } else {
+        getColours()
+      }
+    }, [user]);
 
 
     const handleChangeComplete = (color, event) => {
@@ -124,6 +143,7 @@ const ColourComponent = () => {
 
 
 
+
     return (
       <div className='colours'>
 
@@ -144,7 +164,7 @@ const ColourComponent = () => {
           <ChromePicker color={pickerColor} onChangeComplete={ (color) => { setPickerColor(color.hex) }}/>
           <button className='add-colour-button' onClick={ () => {event.preventDefault(); addColour(pickerColor); } }>Add</button>
         </div>
-        
+
       </div>
     )
 

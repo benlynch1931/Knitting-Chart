@@ -17,12 +17,36 @@ class GlobalContextProvider extends Component {
     isSaved: true,
     loggedIn: false,
     orientation: 'right',
+    user: false,
+    userName: false,
     disabledButton: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       // color: 'rgba(0, 0, 0, 0)',
       // borderColor: 'rgba(0, 0, 0, 0)',
       // boxShadow: '0px 0px 0px rgba(0, 0, 0, 0)'
-    }
+    },
+    userAbilities: [
+      <form onSubmit={ (event) => { event.preventDefault(); loginForm(event); }}>
+        <table>
+          <tbody>
+            <tr>
+              <td><label>Email</label></td>
+              <td><input type='text' id='email' /></td>
+            </tr>
+            <tr>
+              <td><label>Password</label></td>
+              <td><input type='password' id='password'/></td>
+            </tr>
+            <tr>
+              <td colSpan='2' className='login buttons cell'>
+                <button type='submit' style={{ marginTop: 5, marginRight: 5 }} onClick={ () => {setFormButton('login') }}>Log In</button>
+                <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    ]
   }
 
   setStitchCount = (newSize) => {
@@ -30,8 +54,20 @@ class GlobalContextProvider extends Component {
 
   }
 
+  setUserAbilities = (abilities) => {
+    this.setState({ userAbilities: abilities })
+  }
+
   changeOrientation = (newOrientation) => {
     this.setState({ orientation: newOrientation })
+  }
+
+  setUser = (user) => {
+    this.setState({ user: user })
+  }
+
+  setUserName = (username) => {
+    this.setState({ userName: username })
   }
 
   setRowCount = (newSize) => {
@@ -80,7 +116,10 @@ class GlobalContextProvider extends Component {
         setMirroring: this.setMirroring,
         setSaved: this.setSaved,
         setLoggedIn: this.setLoggedIn,
-        changeOrientation: this.changeOrientation
+        changeOrientation: this.changeOrientation,
+        setUser: this.setUser,
+        setUserName: this.setUserName,
+        setUserAbilities: this.setUserAbilities
       }}>
       {this.props.children}
       </GlobalContext.Provider>

@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { Component, useContext, useEffect, useState, useRef } from 'react';
 import Colours from './Colours.Array'
 import { GlobalContext } from '../contexts/GlobalContext.js'
 
@@ -6,20 +6,27 @@ import '../styles/navigation.css';
 
 const Navigation = () => {
 
-  const { stitchCount, rowCount, selectedCells, chartID, setChartID, setStitchCount, setRowCount, setSelectedCells, isSaved, setSaved, changeColourPick, loggedIn, setLoggedIn, disabledButton } = useContext(GlobalContext)
+  let initialRender = useRef(true)
 
-  const [viewChartsList, setViewChartsList] = useState(null)
+  const { setUserAbilities, user, setUser, stitchCount, rowCount, selectedCells, chartID, setChartID, setStitchCount, setRowCount, setSelectedCells, isSaved, setSaved, changeColourPick, setLoggedIn, disabledButton } = useContext(GlobalContext)
+
+  const [viewChartsList, setViewChartsList] = useState(<li className='charts-list'><div>Please Log In</div></li>)
   const [formButton, setFormButton] = useState(false)
+  const [userName, setUserName] = useState(false)
+  const [incorrectDetails, setIncorrectDetails] = useState(null)
+  const [inputUserDetails, setInputUserDetails] = useState({})
+
 
   const saveCells = () => {
     setSaved(true)
     const data = { cells: selectedCells, chart_id: chartID }
-    fetch(`https://chart-api-staging.herokuapp.com/api/v1/selected_cells`, {
+    // fetch(`http://localhost:6030/api/v1/selected_cells/`, {
+    fetch(`https://knitting-chart.herokuapp.com/api/v1/selected_cells`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'mode': 'no-cors',
-        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        'Content-Type': 'application/json'
+        // 'mode': 'no-cors',
+        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       },
       body: JSON.stringify(data)
     })
@@ -27,11 +34,13 @@ const Navigation = () => {
 
   const loadChartsList = () => {
     saveCells()
-    fetch('https://chart-api-staging.herokuapp.com/api/v1/charts/', {
+    // fetch(`http://localhost:6030/api/v1/charts/`, {
+    fetch('https://knitting-chart.herokuapp.com/api/v1/charts/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       }
     })
     .then(res => res.json())
@@ -47,11 +56,13 @@ const Navigation = () => {
 
   const loadChart = (chartID) => {
     setSaved(false)
-    fetch(`https://chart-api-staging.herokuapp.com/api/v1/charts/${chartID}`, {
+    // fetch(`http://localhost:6030/api/v1/charts/${chartID}`, {
+    fetch(`https://knitting-chart.herokuapp.com/api/v1/charts/${chartID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       }
     })
     .then(res => res.json())
@@ -68,11 +79,12 @@ const Navigation = () => {
 
   const loadCellsForChart = (chartID) => {
     let cellsObject = {}
-    fetch(`https://chart-api-staging.herokuapp.com/api/v1/selected_cells/${chartID}`, {
+    // fetch(`http://localhost:6030/api/v1/selected_cells/${chartID}`, {
+    fetch(`https://knitting-chart.herokuapp.com/api/v1/selected_cells/${chartID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
     .then(res => res.json())
@@ -85,6 +97,62 @@ const Navigation = () => {
     })
   }
 
+  const logIn = (email, password) => {
+    // fetch('http://localhost:6030/api/v1/sessions', {
+    fetch('https://knitting-chart.herokuapp.com/api/v1/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email, password: password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status == 'incorrect details') {
+        setIncorrectDetails(<tr><td colSpan='2'>Error: Incorrect email or password</td></tr>)
+        setInputUserDetails({ borderWidth: 1, borderColor: '#FF0000' })
+        document.getElementById('email').value = "";
+        document.getElementById('password').value = "";
+      } else {
+        localStorage.setItem("token", data.data.token)
+        localStorage.setItem("name", data.data.user.first_name)
+        localStorage.setItem("user_id", data.data.user.id)
+        setIncorrectDetails(null)
+        setInputUserDetails({})
+        setLoggedIn(true)
+        setUser(true)
+        setUserAbilities(userAbilitiesFunc())
+        setViewChartsList(<li className='charts-list'><div>Loading...</div></li>)
+      }
+    })
+  }
+
+  const signUp = (event) => {
+    if (event.target.signupPassword.value === event.target.signupConfirmPassword.value) {
+      // fetch('http://localhost:6030/api/v1/users', {
+      fetch('https://knitting-chart.herokuapp.com/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            first_name: event.target.firstName.value,
+            last_name: event.target.lastName.value,
+            username: event.target.signupUsername.value,
+            email: event.target.signupEmail.value,
+            password: btoa(event.target.signupPassword.value)
+          }
+        })
+      })
+    } else {
+
+    }
+  }
+
+
+
+
   const cancelChanges = () => {
     setChartID(null);
     setSelectedCells({});
@@ -95,33 +163,46 @@ const Navigation = () => {
   }
 
   useEffect(() => {
-    loadChartsList()
-  }, [])
+    if (initialRender.current && !localStorage.getItem('name')) {
+      initialRender.current = false
+    } else {
+      loadChartsList()
+    }
+  }, [user])
 
   const loginForm = (event) => {
     if (formButton == 'login') {
-      if (event.target.username.value && event.target.password.value) {
-        const username = event.target.username.value
-        const password = event.target.password.value
+      if (event.target.email.value && event.target.password.value) {
+        const email = event.target.email.value
+        const password = btoa(event.target.password.value)
+        logIn(email, password)
       } else {
       }
     }
     setFormButton(false)
   }
 
-  const userAbilities = () => {
-    if(loggedIn == false) {
+  const userAbilitiesFunc = () => {
+    if (localStorage.getItem('name')) {
+      return (
+        <div>
+          <p>Welcome {localStorage.getItem('name')}</p>
+          <button onClick={ () => { localStorage.clear(); setLoggedIn(false); setUserName(false); setUser(false) } }>Logout</button>
+        </div>
+      )
+
+    } else {
       return (
         <form onSubmit={ (event) => { event.preventDefault(); loginForm(event); }}>
           <table>
             <tbody>
               <tr>
-                <td><label>Username</label></td>
-                <td><input type='text' id='username' /></td>
+                <td><label>Email</label></td>
+                <td><input type='text' id='email' style={ inputUserDetails } /></td>
               </tr>
               <tr>
                 <td><label>Password</label></td>
-                <td><input type='password' id='password' /></td>
+                <td><input type='password' id='password' style={ inputUserDetails } /></td>
               </tr>
               <tr>
                 <td colSpan='2' className='login buttons cell'>
@@ -129,14 +210,19 @@ const Navigation = () => {
                   <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
                 </td>
               </tr>
+              { incorrectDetails }
             </tbody>
           </table>
         </form>
       )
-    } else {
-
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('name')) {
+      setViewChartsList(<li className='charts-list'><div>Loading...</div></li>)
+    }
+  }, [])
 
   return (
     <div className='navigation'>
@@ -153,7 +239,7 @@ const Navigation = () => {
           </tr>
           <tr>
             <td>
-              <button className='cancel-btn' onClick={ () => { cancelChanges() }}>Cancel</button>
+              <button className='cancel-btn'  onClick={ () => { cancelChanges() }}>Cancel</button>
               <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} style={ isSaved ? disabledButton : {} } disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
               <button className='load-btn' disabled={!isSaved} style={ isSaved ? {} : disabledButton } onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>Load</button>
             </td>
@@ -163,7 +249,7 @@ const Navigation = () => {
       </div>
 
       <div className='variable-nav-div right'>
-        { userAbilities() }
+        { userAbilitiesFunc() }
       </div>
 
       <div id='load-chart-dropdown' className='load-chart'>
@@ -173,7 +259,7 @@ const Navigation = () => {
       </div>
 
       <div id='signup-dropdown' className='signup'>
-        <form>
+        <form onSubmit={ (event) => { event.preventDefault(); signUp(event); document.getElementById("signup-dropdown").classList.toggle("show-signup"); }}>
           <table>
             <tbody>
               <tr>
@@ -182,23 +268,23 @@ const Navigation = () => {
               <tr><td><input className='name-info' id='firstName' style={{ marginRight: 5}}/><input className='name-info' id='lastName' style={{ marginLeft: 5}}/></td></tr>
               <br />
               <tr><td><label>Username:</label></td></tr>
-              <tr><td><input type='text' id='signup-username'/></td></tr>
+              <tr><td><input type='text' id='signupUsername'/></td></tr>
               <br />
               <tr><td><label>Email </label></td></tr>
-              <tr><td><input type='email' id='signup-email' /></td></tr>
+              <tr><td><input type='email' id='signupEmail' /></td></tr>
               <br />
               <tr><td><label>Password</label></td></tr>
-              <tr><td><input type='password' id='signup-password'/></td></tr>
+              <tr><td><input type='password' id='signupPassword' minLength="6"/></td></tr>
               <br />
               <tr><td><label>Confirm Password</label></td></tr>
-              <tr><td><input type='password' id='signup-confirm-password'/></td></tr>
+              <tr><td><input type='password' id='signupConfirmPassword' minLength="6"/></td></tr>
               <br />
               <tr><td><button>Sign Up</button></td></tr>
             </tbody>
           </table>
         </form>
       </div>
-      
+
     </div>
   )
 }

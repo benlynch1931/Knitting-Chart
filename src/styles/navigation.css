@@ -65,10 +65,18 @@ img {
   border: solid #FF0000;
 }
 
-.right table {
+.right table, .right div {
   float: right;
   margin-right: 20px;
   margin-top: 10px;
+}
+
+.right div button {
+  width: 5em;
+  height: 1.75em;
+  border-color: #1B7680;
+  border-radius: 4px;
+  outline: 0;
 }
 
 .login.buttons.cell {
@@ -149,6 +157,8 @@ ul {
   margin-top: 5px;
   width: 40%;
 }
+
+
 
 #signup-username, #signup-password, #signup-email, #signup-confirm-password {
   margin-top: 5px;
