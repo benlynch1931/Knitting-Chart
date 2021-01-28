@@ -141,7 +141,8 @@ const Navigation = () => {
             last_name: event.target.lastName.value,
             username: event.target.signupUsername.value,
             email: event.target.signupEmail.value,
-            password: btoa(event.target.signupPassword.value)
+            password: btoa(event.target.signupPassword.value),
+            password_confirmation: btoa(event.target.signupConfirmPassword.value)
           }
         })
       })
