@@ -24,7 +24,8 @@ const Navigation = () => {
     fetch(`https://knitting-chart.herokuapp.com/api/v1/selected_cells`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
         // 'mode': 'no-cors',
         // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       },
@@ -33,14 +34,14 @@ const Navigation = () => {
   }
 
   const loadChartsList = () => {
+    console.log()
     saveCells()
     // fetch(`http://localhost:6030/api/v1/charts/`, {
     fetch('https://knitting-chart.herokuapp.com/api/v1/charts/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
+        'Authorization': `Bearer ${localStorage.getItem('token')}`å
       }
     })
     .then(res => res.json())
@@ -62,7 +63,6 @@ const Navigation = () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
-        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       }
     })
     .then(res => res.json())
