@@ -206,7 +206,7 @@ const Navigation = () => {
               </tr>
               <tr>
                 <td colSpan='2' className='login buttons cell'>
-                  <button type='submit' style={{ marginTop: 5, marginRight: 5 }} onClick={ () => {setFormButton('login') }}>Log In</button>
+                  <button type='submit' style={{ marginTop: 5, marginRight: 5 }} onClick={ () => { setFormButton('login') }}>Log In</button>
                   <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
                 </td>
               </tr>
@@ -239,8 +239,8 @@ const Navigation = () => {
           </tr>
           <tr>
             <td>
-              <button className='cancel-btn'  onClick={ () => { cancelChanges() }}>Cancel</button>
-              <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} style={ isSaved ? disabledButton : {} } disabled={isSaved} onClick={ () => { saveCells(); } }>Save</button>
+              <button className='cancel-btn'  onClick={ () => { cancelChanges(); loadChartsList() }}>Cancel</button>
+              <button className={ isSaved ? 'save-btn' : 'save-btn not-saved'} style={ isSaved ? disabledButton : {} } disabled={isSaved} onClick={ () => { saveCells(); loadChartsList() } }>Save</button>
               <button className='load-btn' disabled={!isSaved} style={ isSaved ? {} : disabledButton } onClick={ () => { document.getElementById("load-chart-dropdown").classList.toggle("show-chart"); } }>Load</button>
             </td>
           </tr>
