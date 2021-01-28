@@ -14,6 +14,7 @@ const Navigation = () => {
   const [formButton, setFormButton] = useState(false)
   const [userName, setUserName] = useState(false)
   const [incorrectDetails, setIncorrectDetails] = useState(null)
+  const [signUpErrorMessage, setSignUpErrorMessage] = useState(null)
   const [inputUserDetails, setInputUserDetails] = useState({})
 
 
@@ -281,6 +282,7 @@ const Navigation = () => {
               <tr><td><input type='password' id='signupConfirmPassword' minLength="6"/></td></tr>
               <br />
               <tr><td><button>Sign Up</button></td></tr>
+              <tr>{signUpErrorMessage}</tr>
             </tbody>
           </table>
         </form>
