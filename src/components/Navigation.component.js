@@ -27,8 +27,6 @@ const Navigation = () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
-        // 'mode': 'no-cors',
-        // 'Access-Control-Allow-Origin': 'https://knitting-chart.vercel.app'
       },
       body: JSON.stringify(data)
     })
@@ -42,7 +40,7 @@ const Navigation = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`å
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
     .then(res => res.json())
