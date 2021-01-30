@@ -13,7 +13,7 @@ const Navigation = () => {
   const [viewChartsList, setViewChartsList] = useState(<li className='charts-list'><div>Please Log In</div></li>)
   const [formButton, setFormButton] = useState(false)
   const [userName, setUserName] = useState(false)
-  const [incorrectDetails, setIncorrectDetails] = useState(null)
+  const [loginMessage, setLoginMessage] = useState(null)
   const [signUpErrorMessage, setSignUpErrorMessage] = useState(null)
   const [inputUserDetails, setInputUserDetails] = useState({})
 
@@ -108,7 +108,7 @@ const Navigation = () => {
     .then(res => res.json())
     .then(data => {
       if (data.status == 'incorrect details') {
-        setIncorrectDetails(<tr><td colSpan='2'>Error: Incorrect email or password</td></tr>)
+        setLoginMessage(<tr><td colSpan='2'>Error: Incorrect email or password</td></tr>)
         setInputUserDetails({ borderWidth: 1, borderColor: '#FF0000' })
         document.getElementById('email').value = "";
         document.getElementById('password').value = "";
@@ -116,7 +116,7 @@ const Navigation = () => {
         localStorage.setItem("token", data.data.token)
         localStorage.setItem("name", data.data.user.first_name)
         localStorage.setItem("user_id", data.data.user.id)
-        setIncorrectDetails(null)
+        setLoginMessage(null)
         setInputUserDetails({})
         setLoggedIn(true)
         setUser(true)
@@ -138,7 +138,7 @@ const Navigation = () => {
           user: {
             first_name: event.target.firstName.value,
             last_name: event.target.lastName.value,
-            username: event.target.signupUsername.value,
+            // username: event.target.signupUsername.value,
             email: event.target.signupEmail.value,
             password: btoa(event.target.signupPassword.value),
             password_confirmation: btoa(event.target.signupConfirmPassword.value)
@@ -147,7 +147,6 @@ const Navigation = () => {
       })
       .then (res => res.json())
       .then(data => {
-        logIn(event.target.signupEmail.value, event.target.signupPassword.value)
         document.getElementById('signupEmail').value = "";
         document.getElementById('signupPassword').value = "";
         document.getElementById('firstName').value = "";
@@ -156,7 +155,7 @@ const Navigation = () => {
         if (data.status == 'error') {
 
         } else {
-
+          setLoginMessage(<tr><td colSpan='2'>Succesfully registered! Log in</td></tr>)
         }
       })
     } else {
@@ -224,7 +223,7 @@ const Navigation = () => {
                   <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
                 </td>
               </tr>
-              { incorrectDetails }
+              { loginMessage }
             </tbody>
           </table>
         </form>
@@ -281,9 +280,9 @@ const Navigation = () => {
               </tr>
               <tr><td><input className='name-info' id='firstName' style={{ marginRight: 5}}/><input className='name-info' id='lastName' style={{ marginLeft: 5}}/></td></tr>
               <br />
-              <tr><td><label>Username:</label></td></tr>
+            {/*  <tr><td><label>Username:</label></td></tr>
               <tr><td><input type='text' id='signupUsername'/></td></tr>
-              <br />
+              <br /> */}
               <tr><td><label>Email </label></td></tr>
               <tr><td><input type='email' id='signupEmail' /></td></tr>
               <br />
