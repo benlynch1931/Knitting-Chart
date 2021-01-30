@@ -139,7 +139,6 @@ const Navigation = () => {
           user: {
             first_name: event.target.firstName.value,
             last_name: event.target.lastName.value,
-            // username: event.target.signupUsername.value,
             email: event.target.signupEmail.value,
             password: btoa(event.target.signupPassword.value),
             password_confirmation: btoa(event.target.signupConfirmPassword.value)
@@ -287,9 +286,6 @@ const Navigation = () => {
               </tr>
               <tr><td><input className='name-info' id='firstName' style={{ marginRight: 5}}/><input className='name-info' id='lastName' style={{ marginLeft: 5}}/></td></tr>
               <br />
-            {/*  <tr><td><label>Username:</label></td></tr>
-              <tr><td><input type='text' id='signupUsername'/></td></tr>
-              <br /> */}
               <tr><td><label>Email </label></td></tr>
               <tr><td><input type='email' id='signupEmail' style={ inputSignupDetails }/></td></tr>
               <br />
