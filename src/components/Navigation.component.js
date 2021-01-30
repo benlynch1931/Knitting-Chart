@@ -145,6 +145,20 @@ const Navigation = () => {
           }
         })
       })
+      .then (res => res.json())
+      .then(data => {
+        logIn(event.target.signupEmail.value, event.target.signupPassword.value)
+        document.getElementById('signupEmail').value = "";
+        document.getElementById('signupPassword').value = "";
+        document.getElementById('firstName').value = "";
+        document.getElementById('lastName').value = "";
+        document.getElementById('signupConfirmPassword').value = "";
+        if (data.status == 'error') {
+
+        } else {
+
+        }
+      })
     } else {
 
     }
