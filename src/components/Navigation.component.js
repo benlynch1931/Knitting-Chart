@@ -15,7 +15,8 @@ const Navigation = () => {
   const [userName, setUserName] = useState(false)
   const [loginMessage, setLoginMessage] = useState(null)
   const [signUpErrorMessage, setSignUpErrorMessage] = useState(null)
-  const [inputUserDetails, setInputUserDetails] = useState({})
+  const [inputLoginDetails, setInputLoginDetails] = useState({})
+  const [inputSignupDetails, setInputSignupDetails] = useState({})
 
 
   const saveCells = () => {
@@ -108,8 +109,8 @@ const Navigation = () => {
     .then(res => res.json())
     .then(data => {
       if (data.status == 'incorrect details') {
-        setLoginMessage(<tr><td colSpan='2'>Error: Incorrect email or password</td></tr>)
-        setInputUserDetails({ borderWidth: 1, borderColor: '#FF0000' })
+        setLoginMessage(<td colSpan='2'>Error: Incorrect email or password</td>)
+        setInputLoginDetails({ borderWidth: 1, borderColor: '#FF0000' })
         document.getElementById('email').value = "";
         document.getElementById('password').value = "";
       } else {
@@ -152,19 +153,23 @@ const Navigation = () => {
         document.getElementById('firstName').value = "";
         document.getElementById('lastName').value = "";
         document.getElementById('signupConfirmPassword').value = "";
-        if (data.status == 'error') {
-
+        if (data.status == 'duplicate email') {
+          setSignUpErrorMessage(<td colSpan='2'>Error: Email already exists!</td>)
         } else {
-          setLoginMessage(<tr><td colSpan='2'>Succesfully registered! Log in</td></tr>)
+          document.getElementById("signup-dropdown").classList.toggle("show-signup");
+          setLoginMessage(<td colSpan='2'>Succesfully registered! Log in</td>)
         }
       })
     } else {
-
+      document.getElementById('signupEmail').value = "";
+      document.getElementById('signupPassword').value = "";
+      document.getElementById('firstName').value = "";
+      document.getElementById('lastName').value = "";
+      document.getElementById('signupConfirmPassword').value = "";
+      setSignUpErrorMessage(<td colSpan='2'>Error: Passwords don't match!</td>)
+      setInputSignupDetails({ borderWidth: 1, borderColor: '#FF0000' })
     }
   }
-
-
-
 
   const cancelChanges = () => {
     setChartID(null);
@@ -211,11 +216,11 @@ const Navigation = () => {
             <tbody>
               <tr>
                 <td><label>Email</label></td>
-                <td><input type='text' id='email' style={ inputUserDetails } /></td>
+                <td><input type='text' id='email' style={ inputLoginDetails } /></td>
               </tr>
               <tr>
                 <td><label>Password</label></td>
-                <td><input type='password' id='password' style={ inputUserDetails } /></td>
+                <td><input type='password' id='password' style={ inputLoginDetails } /></td>
               </tr>
               <tr>
                 <td colSpan='2' className='login buttons cell'>
@@ -223,7 +228,9 @@ const Navigation = () => {
                   <button style={{ marginTop: 5, marginLeft: 5 }} onClick={ () => { document.getElementById("signup-dropdown").classList.toggle("show-signup"); } } >Sign Up</button>
                 </td>
               </tr>
-              { loginMessage }
+              <tr>
+                { loginMessage }
+              </tr>
             </tbody>
           </table>
         </form>
@@ -272,7 +279,7 @@ const Navigation = () => {
       </div>
 
       <div id='signup-dropdown' className='signup'>
-        <form onSubmit={ (event) => { event.preventDefault(); signUp(event); document.getElementById("signup-dropdown").classList.toggle("show-signup"); }}>
+        <form onSubmit={ (event) => { event.preventDefault(); signUp(event);  }}>
           <table>
             <tbody>
               <tr>
@@ -284,13 +291,13 @@ const Navigation = () => {
               <tr><td><input type='text' id='signupUsername'/></td></tr>
               <br /> */}
               <tr><td><label>Email </label></td></tr>
-              <tr><td><input type='email' id='signupEmail' /></td></tr>
+              <tr><td><input type='email' id='signupEmail' style={ inputSignupDetails }/></td></tr>
               <br />
               <tr><td><label>Password</label></td></tr>
-              <tr><td><input type='password' id='signupPassword' minLength="6"/></td></tr>
+              <tr><td><input type='password' id='signupPassword' minLength="6" style={ inputSignupDetails }/></td></tr>
               <br />
               <tr><td><label>Confirm Password</label></td></tr>
-              <tr><td><input type='password' id='signupConfirmPassword' minLength="6"/></td></tr>
+              <tr><td><input type='password' id='signupConfirmPassword' minLength="6" style={ inputSignupDetails }/></td></tr>
               <br />
               <tr><td><button>Sign Up</button></td></tr>
               <tr>{signUpErrorMessage}</tr>
